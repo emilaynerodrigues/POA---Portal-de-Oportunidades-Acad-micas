@@ -70,3 +70,5 @@ if ($verificarAluno->rowCount() == 0 && $verificarAnunciante->rowCount() == 0) {
     </div>";
     exit();
 }
+
+

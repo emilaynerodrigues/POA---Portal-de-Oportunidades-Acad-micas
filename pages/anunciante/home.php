@@ -2,7 +2,7 @@
 session_start();
 
 // Verificando se o usuário está logado como anunciante
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Anunciante') {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
   // Se não estiver logado como anunciante, redirecione para a página de login
   header('Location: ../../index.php');
   $_SESSION['mensagem'] =
@@ -29,7 +29,7 @@ include("../../php/conexao.php");
 $conn = conectar();
 
 // Consulta ao banco de dados para obter os detalhes do anunciante
-$query = $conn->prepare("SELECT nome, email FROM anunciante WHERE id = :id");
+$query = $conn->prepare("SELECT nome, email, senha FROM anunciante WHERE id = :id");
 $query->bindValue(":id", $user_id);
 $query->execute();
 $anunciante = $query->fetch(PDO::FETCH_ASSOC);
@@ -37,18 +37,19 @@ $anunciante = $query->fetch(PDO::FETCH_ASSOC);
 // Acessando os detalhes do anunciante
 $nome_anunciante = $anunciante['nome'];
 $email_anunciante = $anunciante['email'];
-
+$senha = $anunciante['senha'];
 // Lógica de paginação
 $limite_result = 6; // Definir a quantidade de projetos por página
 $pagina_atual = isset($_GET['page']) ? $_GET['page'] : 1; // Obter a página atual da URL
 
 $inicio = ($pagina_atual - 1) * $limite_result; // Calcular o início da seleção de registros
 
-// Consulta para obter os projetos do anunciante atualmente logado, ordenados pela data de postagem
+// Consulta para obter os projetos do anunciante atualmente logado, ordenados pela data de postagem em ordem decrescente (mais recentes primeiro)
 $stmt = $conn->prepare("SELECT * FROM projeto WHERE anunciante_id = :anunciante_id ORDER BY dataPostagem DESC LIMIT $inicio, $limite_result");
 $stmt->bindValue(":anunciante_id", $user_id);
 $stmt->execute();
 $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 
 ?>
 
@@ -72,6 +73,17 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 </head>
 
 <body>
+
+  <!-- mostrando mensagem de projeto excluido-->
+  <?php
+  //verificando se existe a sessão
+  if (isset($_SESSION['mensagem'])) {
+    echo $_SESSION['mensagem'];
+  }
+
+  //destruindo sessão
+  unset($_SESSION['mensagem']);
+  ?>
 
   <!-- mostrando mensagem de projeto excluido-->
   <?php
@@ -195,7 +207,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </section>
 
       <!-- seção dados-pessoais -->
-      <section class="content" id="dados-anuciante"> </section>
+      <section class="content" id="dados-anuciante"> <?php echo $senha ?> </section>
 
       <!-- seção configuracoes -->
       <section class="content" id="configuracoes">
@@ -221,13 +233,17 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- primeira coluna -->
             <div class="col">
               <!-- pergunta -->
-              <h3>Você tem certeza que deseja excluir sua conta no POA?</h3>
-              <!-- confirmação com checkbox' -->
-              <label>
-                <input type="checkbox" id="confirmCheckbox"> Sim, tenho certeza que quero excluir minha conta
-              </label>
-              <!-- link para excluir conta -->
-              <a href="#" class="excluirConta btn">Excluir Conta</a>
+              <form action="../../php/anunciante/script_excluirConta.php" method="post">
+                <h3>Você tem certeza que deseja excluir sua conta no POA?</h3>
+                <!-- confirmação com checkbox' -->
+                <label class="checkbox-input">
+                  <input type="checkbox" name="confirmCheckbox" id="confirmCheckbox" required>
+                  <span>Sim, tenho certeza que quero excluir minha conta</span>
+                </label>
+
+                <!-- button para excluir conta -->
+                <button type="submit" class="excluirConta btn">Excluir Conta</button>
+              </form>
             </div>
 
             <!-- segunda coluna -->

@@ -1,21 +1,21 @@
-<form action="">
+<form action="../../php/anunciante/script_atualizarSenha.php" method="post">
     <!-- input de email - apenas de leitura -->
     <div class="form-item">
-        <input type="email" name="email" id="email-input" readonly>
+        <input type="email" name="email" id="email-input" value="<?php echo $email_anunciante ?>" readonly>
         <label for="email-input" class="email-input-label">E-mail*</label>
     </div>
 
     <div class="row">
         <!-- input de senha atual -->
         <div class="form-item">
-            <input type="password" name="senha" id="senhaAtual-input">
+            <input type="password" name="senha_atual" id="senhaAtual-input">
             <label for="senhaAtual-input">Senha atual*</label>
             <span data-target="senhaAtual-input" class="toggle-senha password material-symbols-outlined">visibility</span>
         </div>
 
         <!-- input de senha nova -->
         <div class="form-item">
-            <input type="password" name="senha" id="senhaNova-input">
+            <input type="password" name="nova_senha" id="senhaNova-input">
             <label for="senhaNova-input">Nova senha*</label>
             <span data-target="senhaNova-input" class="toggle-senha password material-symbols-outlined">visibility</span>
         </div>
@@ -63,16 +63,20 @@
     function abrirModalAcessoDados(link) {
         var modal = document.getElementById("modalDadosAcesso");
 
+        // Configurando o link de confirmação com a função de submissão do formulário
+        var confirmButton = modal.querySelector("#confirmDeleteButton");
+        confirmButton.onclick = function(event) {
+            event.preventDefault(); // Evita o comportamento padrão do link
 
-        // var confirmDeleteButton = document.getElementById("confirmDeleteButton");
-        // currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
-
-        // Configurando o link de exclusão com o ID correto do projeto
-        // confirmDeleteButton.href = "../../php/anunciante/script_excluirProjeto.php?id=" + currentProjectId;
+            // Submete o formulário para atualizar a senha
+            var form = document.querySelector("form");
+            form.submit();
+        };
 
         // Abrindo o modal de confirmação de exclusão
         modal.style.display = "flex";
     }
+
 
     // função para fechar o modal
     function fecharModal() {

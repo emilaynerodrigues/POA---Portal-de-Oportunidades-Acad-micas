@@ -35,30 +35,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['EditProjeto'])) {
     // recebendo os dados do formulário
     $dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
 
-    // definindo a data de postagem como a data e hora atuais
-    $dados['dataPostagem'] = date('Y-m-d H:i:s');
-
     // implementando a atualização do projeto
-    $query_update = "UPDATE projeto SET titulo=:titulo, categoria=:categoria, formato=:formato, valor=:valor, dataInicio=:dataInicio, dataFinal=:dataFinal, cidade=:cidade, uf=:uf, descricao=:descricao, dataPostagem=:dataPostagem WHERE id=:id";
+    $query_update = "UPDATE projeto SET titulo=:titulo, categoria=:categoria, formato=:formato, valor=:valor, dataInicio=:dataInicio, dataFinal=:dataFinal, cidade=:cidade, uf=:uf, descricao=:descricao WHERE id=:id";
 
     //preparando a query 
-    $edite_projeto = $conn->prepare($query_update);
+    $edit_projeto = $conn->prepare($query_update);
 
     // passando os dados das variáveis para os pseudo-nomes
-    $edite_projeto->bindParam(":titulo", $dados['titulo'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":categoria", $dados['categoria'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":formato", $dados['formato'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":valor", $dados['valor'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":dataInicio", $dados['dataInicio'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":dataFinal", $dados['dataFinal'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":cidade", $dados['cidade'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":uf", $dados['uf'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":descricao", $dados['descricao'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":dataPostagem", $dados['dataPostagem'], PDO::PARAM_STR);
-    $edite_projeto->bindParam(":id", $id, PDO::PARAM_INT);
+    $edit_projeto->bindParam(":titulo", $dados['titulo'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":categoria", $dados['categoria'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":formato", $dados['formato'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":valor", $dados['valor'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":dataInicio", $dados['dataInicio'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":dataFinal", $dados['dataFinal'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":cidade", $dados['cidade'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":uf", $dados['uf'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":descricao", $dados['descricao'], PDO::PARAM_STR);
+    $edit_projeto->bindParam(":id", $id, PDO::PARAM_INT);
 
     // verificando se a execução da query foi realizada com sucesso
-    if ($edite_projeto->execute()) {
+    if ($edit_projeto->execute()) {
         // Atualização bem-sucedida, redirecionar para a página de alteração do projeto
         $_SESSION["projeto-atualizado"] = true;
         // redirecionar para a página de alteração do projeto após o tratamento do formulário
@@ -187,7 +183,7 @@ unset($_SESSION['projeto-atualizado']);
                                         echo "<option value='$formato'";
                                         if (isset($dados['formato']) && $dados['formato'] == $formato) {
                                             echo " selected"; // marca como selecionado se o formato corresponder aos dados recebidos
-                                        } elseif (isset($row_projeto) && $row_projeto['formato'] == $formato) {
+                                        } elseif (isset($row_projeto['formato']) && $row_projeto['formato'] == $formato) {
                                             echo " selected"; // marca como selecionado se o formato corresponder aos dados do banco de dados
                                         }
                                         echo ">$formato</option>";

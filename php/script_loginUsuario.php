@@ -48,14 +48,14 @@ $rowAnunciante = $queryAnunciante->fetch(PDO::FETCH_ASSOC); //obtem (se houver) 
 
 if ($rowAluno) {
     $_SESSION['user_id'] = $rowAluno['id'];
-    $_SESSION['user_type'] = 'Aluno'; // Para distinguir entre aluno e anunciante
+    $_SESSION['user_type'] = 'aluno'; // Para distinguir entre aluno e anunciante
 
     //Redirecionando para home do aluno
     header("Location: ../pages/aluno/home.php");
     exit();
 } elseif ($rowAnunciante) {
     $_SESSION['user_id'] = $rowAnunciante['id'];
-    $_SESSION['user_type'] = 'Anunciante'; // Para distinguir entre aluno e anunciante
+    $_SESSION['user_type'] = 'anunciante'; // Para distinguir entre aluno e anunciante
 
     //Redirecionando para home do anunciante
     header("Location: ../pages/anunciante/home.php");
