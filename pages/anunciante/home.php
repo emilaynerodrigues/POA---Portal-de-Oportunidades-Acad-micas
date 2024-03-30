@@ -44,10 +44,12 @@ $pagina_atual = isset($_GET['page']) ? $_GET['page'] : 1; // Obter a página atu
 
 $inicio = ($pagina_atual - 1) * $limite_result; // Calcular o início da seleção de registros
 
-// Consulta para obter os projetos de acordo com a paginação --> ordenando pela data de postagem
-$stmt = $conn->prepare("SELECT * FROM projeto ORDER BY dataPostagem DESC LIMIT $inicio, $limite_result");
+// Consulta para obter os projetos do anunciante atualmente logado, ordenados pela data de postagem
+$stmt = $conn->prepare("SELECT * FROM projeto WHERE anunciante_id = :anunciante_id ORDER BY dataPostagem DESC LIMIT $inicio, $limite_result");
+$stmt->bindValue(":anunciante_id", $user_id);
 $stmt->execute();
 $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 ?>
 
 <!DOCTYPE html>
