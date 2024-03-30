@@ -1,0 +1,270 @@
+/* ---------- inicio ---------- */
+#inicio,
+#login,
+#cadastrar,
+#usuario {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  padding: 50px 75px;
+}
+
+#inicio .absolute,
+#cadastrar .absolute {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -30%;
+  z-index: -10;
+  width: 100vw;
+  height: 100vh;
+}
+
+#inicio header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+#inicio header .menu-item {
+  color: var(--rich-black);
+}
+
+#inicio a {
+  font-size: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  font-weight: 500;
+}
+
+#inicio header nav {
+  display: flex;
+  align-items: center;
+  gap: 50px;
+}
+
+#inicio .btn {
+  height: 50px;
+}
+
+#inicio .white-hover:hover {
+  background-color: var(--white);
+  color: var(--rich-black);
+}
+
+.container {
+  display: flex;
+  justify-content: space-between; /* Centraliza o conteúdo horizontalmente */
+  align-items: center; /* Centraliza o conteúdo verticalmente */
+  height: calc(100vh - 150px);
+}
+
+.content-hero {
+  max-width: 550px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.content-hero h1 {
+  font-size: 62px;
+  font-weight: 600;
+}
+
+.content-hero h1 span {
+  color: var(--medium-blue);
+}
+
+/* ---------- login ---------- */
+
+#login {
+  color: var(--rich-black);
+}
+
+#login .container,
+#cadastrar .container {
+  margin: 0px 60px;
+}
+
+#login .absolute,
+#usuario .absolute {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: -30%;
+  transform: rotate(180deg);
+  z-index: -10;
+}
+
+#login header,
+#usuario header {
+  display: flex;
+  justify-content: end;
+}
+
+#login .content-wrapper {
+  max-width: 600px;
+}
+
+.cta-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cta-info h2 {
+  font-size: 32px;
+  font-weight: 500;
+}
+
+#login form,
+#cadastrar form {
+  margin: 20px 0px 10px 0px; /*top right bottom left*/
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin: 40px 0 20px 0;
+}
+
+.form-item {
+  position: relative;
+}
+
+.form-item label {
+  position: absolute;
+  top: -12px;
+  left: 15px;
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: var(--white);
+  color: var(--federal-blue);
+}
+
+#login form input,
+#login form select {
+  height: 45px;
+  width: 100%;
+  padding: 0px 20px;
+  border-radius: 5px;
+  border: solid 1px var(--federal-blue);
+  font-size: 14px;
+  color: var(--federal-blue);
+}
+
+#login form input:focus,
+#cadastrar form input:focus,
+#cadastrar form select:focus {
+  border: solid 1px var(--savoy-blue);
+  outline: none;
+}
+
+#login form input:focus + label,
+#login form input:focus + label + spa,
+#cadastrar form input:focus + label,
+#cadastrar form input:focus + label + span,
+#cadastrar form select:focus + label {
+  color: var(--savoy-blue);
+}
+
+#login form button,
+#cadastrar form button {
+  height: 50px;
+  width: 100%;
+  border: none;
+  border-radius: 5px;
+  background-color: var(--federal-blue);
+  color: var(--white);
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  cursor: pointer;
+}
+
+.password {
+  position: absolute;
+  top: 12px;
+  right: 20px;
+  color: var(--federal-blue);
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 40;
+  cursor: pointer;
+  z-index: 20;
+}
+
+.cta-prompt p {
+  font-size: 14px;
+}
+
+.cta-prompt p span a {
+  color: var(--federal-blue);
+  font-weight: 500;
+}
+
+/* ---------- cadastrar ---------- */
+.flex-row {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.flex-row .form-item {
+  width: 100%;
+}
+
+/* ---------- tipo de usuario ---------- */
+#usuario .container {
+  display: flex;
+  justify-content: center;
+}
+
+#usuario .content-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.card {
+  max-width: 300px;
+  background-color: var(--white-flash);
+  border-radius: 5px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 16px;
+  cursor: pointer;
+}
+
+.card .card-icon {
+  height: 60px;
+  width: 60px;
+  background-color: var(--medium-blue);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card .card-icon .icon {
+  font-size: 28px;
+  font-variation-settings: "FILL" 0, "wght" 350, "GRAD" 0, "opsz" 48;
+}
+
+.card h4 {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.card p {
+  font-size: 14px;
+}
+
+#inicio .content-hero .btn-wrapper {
+  justify-content: start;
+}

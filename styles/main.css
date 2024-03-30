@@ -1,0 +1,381 @@
+/* import da fonte outfit */
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap");
+
+/* cores do projeto */
+:root {
+  /*cores principais */
+  --rich-black: #00091d; /*font escura*/
+  --federal-blue: #1e1a56;
+  --medium-blue: #7475d2;
+  --white: #ffffff;
+  /* cores auxiliares */
+  --light-coral: #f46d6d;
+  --savoy-blue: #6264d1;
+  --darvy-gray: #5c5d5e;
+  --french-gray: #adb1b8;
+  --white-flash: #f5f6f7; /*destaque no branco*/
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Outfit", sans-serif;
+}
+
+body {
+  overflow-x: hidden;
+  color: var(--rich-black);
+}
+
+a {
+  text-decoration: none;
+}
+
+p {
+  font-size: 16px;
+  line-height: 150%;
+}
+
+h3 {
+  font-size: 26px;
+  font-weight: 500;
+}
+
+button {
+  border: none;
+}
+
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background-color: var(--federal-blue);
+  color: var(--white);
+  font-size: 14px;
+  transition: 0.3s all;
+  /* verificar tamanho de botões */
+  height: 40px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: var(--medium-blue);
+}
+
+.small-btn {
+  width: 150px;
+}
+
+.normal-btn {
+  width: 250px;
+}
+
+.delete-btn {
+  background-color: var(--light-coral);
+}
+
+.delete-btn:hover,
+.cancel-btn:hover {
+  background-color: #f35b5b;
+  color: var(--white);
+}
+
+.outline-btn {
+  background-color: transparent;
+  border: solid 2px var(--federal-blue);
+  color: var(--rich-black);
+}
+
+.outline-btn:hover {
+  background-color: var(--federal-blue);
+  color: var(--white);
+}
+
+.cancel-btn {
+  background-color: var(--white-flash);
+  color: var(--light-coral);
+  font-weight: 500;
+}
+
+.btn-wrapper {
+  display: flex;
+  gap: 20px;
+}
+
+/*modal*/
+
+/* Estilos para o modal */
+.modal-confirm,
+.modal-delete {
+  display: none;
+}
+
+.modal-session {
+  display: flex;
+}
+
+.modal {
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  z-index: 999;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 9, 29, 0.188);
+}
+
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  background-color: var(--white);
+  padding: 30px;
+  border-radius: 5px;
+}
+
+.close-icon {
+  position: absolute;
+  right: 30px;
+  color: var(--rich-black);
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 48;
+  transition: 0.2s all;
+}
+
+.close-icon:hover,
+.close-icon:focus {
+  color: var(--savoy-blue);
+  cursor: pointer;
+  font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 48;
+}
+
+/* modal de visualizar projeto */
+#projectModal .modal-content {
+  max-width: 650px;
+}
+
+.modal .descricao-texto {
+  line-height: 1.2em;
+}
+
+.modal .head-projeto {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.modal .user-icon {
+  height: 55px;
+  width: 55px;
+  border-radius: 50%;
+  background-color: var(--medium-blue);
+}
+
+.modal h3 {
+  font-size: 24px;
+}
+
+.modal p,
+.modal tag {
+  font-size: 16px;
+}
+
+.mostrar-tudo .descricao-texto {
+  max-height: none;
+}
+
+.modal-content .btn-wrapper {
+  justify-content: center;
+}
+
+/* modal de confirmação */
+
+#confirmModal .modal-content,
+.modal-session .modal-content,
+.modal-delete .modal-content {
+  max-width: 500px;
+  text-align: center;
+}
+
+#confirmModal h3,
+.modal-session h3,
+.modal-delet h3 {
+  font-size: 20px;
+}
+
+#confirmModal p,
+.modal-session p,
+.modal-delete p {
+  font-size: 14px;
+}
+
+#confirmModal .icon,
+.modal-session .icon,
+.modal-delete .icon {
+  font-size: 40px;
+  color: var(--federal-blue);
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 24;
+}
+
+body {
+  color: var(--federal-blue);
+}
+
+aside {
+  width: 74px;
+}
+
+aside .toggle-container {
+  height: 84.4px;
+}
+
+form {
+  width: 100%;
+}
+
+textarea {
+  resize: none;
+}
+
+.logo {
+  cursor: pointer;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: solid 1px var(--federal-blue);
+  border-radius: 5px;
+  padding: 30px;
+}
+
+.form-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.form-head p {
+  font-size: 14px;
+}
+
+.form-item {
+  position: relative;
+}
+
+.form-item label {
+  position: absolute;
+  top: -12px;
+  left: 15px;
+  padding: 5px 10px;
+  font-size: 12px;
+  background-color: var(--white);
+  color: var(--federal-blue);
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+form input,
+form textarea,
+form select {
+  width: 100%;
+  padding: 0px 20px;
+  border-radius: 5px;
+  border: solid 1px var(--federal-blue);
+  font-size: 14px;
+  color: var(--federal-blue);
+}
+
+form input,
+form select {
+  height: 40px;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border: solid 1px var(--savoy-blue);
+  outline: none;
+}
+
+form input:focus + label,
+form input:focus + label + span,
+form select:focus + label,
+form textarea:focus + label {
+  color: var(--savoy-blue);
+}
+
+form .row {
+  display: flex;
+  gap: 20px;
+  flex: 1;
+  width: 100%;
+}
+
+/* primeira row */
+.row:nth-child(1) .form-item:nth-child(1) {
+  width: 55%;
+}
+
+.row:nth-child(1) .form-item:nth-child(2),
+.row .form-item:nth-child(3) {
+  width: 25%;
+}
+
+/* segunda row */
+.row:nth-child(2) .form-item:nth-child(1) {
+  width: 20%;
+}
+
+.row:nth-child(2) .form-item:nth-child(2),
+.row:nth-child(2) .form-item:nth-child(3) {
+  width: 25%;
+}
+
+.row:nth-child(2) .form-item:nth-child(4) {
+  width: 20%;
+}
+
+.row:nth-child(2) .form-item:nth-child(5) {
+  width: 10%;
+}
+
+#descricao {
+  width: 100%;
+  position: relative;
+}
+
+#descricao textarea {
+  padding: 20px;
+}
+
+#contador {
+  font-size: 12px;
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+}
+
+.btn-wrapper {
+  justify-content: end;
+}
+
+.form-container {
+  position: relative;
+}
+
+#cancelBtn {
+  position: absolute;
+  bottom: 30px;
+  right: calc(30px + 150px + 20px);
+}

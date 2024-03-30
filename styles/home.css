@@ -1,0 +1,416 @@
+body {
+  margin: 0;
+  display: flex;
+  color: var(--rich-black);
+}
+
+
+aside {
+  height: 100vh;
+  position: fixed;
+  color: var(--white);
+  z-index: 10;
+  transition: width 0.3s; /* Adiciona uma transição suave para a largura */
+}
+
+/* Estilo para o link do menu ativo */
+aside a.active {
+  background-color: var(--savoy-blue);
+}
+
+.toggle-container {
+  width: 100%;
+  padding: 25px;
+  background-color: var(--federal-blue);
+}
+
+#menuToggle {
+  display: none; /* Esconde o checkbox */
+}
+
+#menuIcon {
+  cursor: pointer;
+  font-size: 26px;
+  transition: transform 0.3s ease-in-out; /* Adiciona uma transição suave para a transformação */
+}
+
+#menuOptions {
+  height: 100%;
+  list-style: none;
+  background-color: var(--medium-blue);
+}
+
+#menuOptions li {
+  position: relative;
+}
+
+#menuOptions li .tooltip {
+  display: none;
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 10px);
+  transform: translate(0, -50%);
+  background-color: var(--white-flash);
+  color: var(--darvy-gray);
+  padding: 10px;
+  width: 120px;
+  text-align: center;
+  font-size: 14px;
+  border-radius: 5px;
+}
+
+#menuOptions li:hover .tooltip {
+  display: block;
+}
+
+.menu-open #menuOptions li .tooltip {
+  display: none;
+}
+
+#menuOptions li a {
+  padding: 25px;
+  color: var(--white);
+  display: flex;
+  opacity: 1;
+}
+
+#menuOptions li a:hover {
+  opacity: 1;
+  /* background-color: var(--savoy-blue); */
+}
+
+#menuOptions .menu-item-label {
+  opacity: 0;
+  color: var(--white);
+  transition: opacity 0.3s ease-in-out, right 0.3s ease-in-out;
+  position: absolute;
+  left: -200%; /* Inicia fora da tela */
+}
+
+aside.menu-open #menuOptions .menu-item-label {
+  opacity: 1;
+  left: 22%;
+}
+
+aside .material-symbols-outlined {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 48;
+}
+/* 
+/*---------------- header ----------------*/
+.header {
+  height: 84.4px; /*mesmo tamanho do toogle do aside*/
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  box-shadow: 0px 2px 2px 0px #1b131325;
+}
+
+
+/* profile */
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.profile-icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--federal-blue);
+  color: var(--white-flash);
+}
+
+.profile-icon span {
+  font-size: 28px;
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 40;
+}
+
+/* ------- */
+
+#contratacoes {
+  padding: 50px;
+  background-color: rgb(205, 107, 50);
+}
+
+#dados-pessoais {
+  padding: 50px;
+  background-color: rgb(50, 66, 205);
+}
+
+#portfolio {
+  padding: 50px;
+  background-color: rgb(205, 50, 166);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 74px;
+  height: 100vh;
+}
+
+.content-wrapper {
+  flex: 1;
+  overflow-y: auto; /* Adiciona uma barra de rolagem quando o conteúdo for maior que a tela */
+  display: flex;
+  flex-direction: column;
+}
+
+main section {
+  flex: 1;
+  padding: 30px;
+  position: relative;
+}
+
+main section h4 {
+  font-size: 20px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* menu inicial - section */
+.add-btn {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 30px;
+  right: 50px;
+  background-color: var(--federal-blue);
+}
+
+.add-btn span {
+  color: var(--white);
+}
+
+.projetos-wrapper {
+  margin-top: 20px;
+  max-width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 35px;
+}
+
+.projeto {
+  width: calc(50% - 18px);
+  border-radius: 5px;
+  border: solid 1px var(--federal-blue);
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.projeto .head-projeto {
+  display: flex;
+  gap: 15px;
+}
+
+.projeto .head-projeto .user-icon {
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  background-color: var(--medium-blue);
+}
+
+.projeto .head-projeto h3 {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.projeto p,
+.projeto span {
+  font-size: 14px;
+}
+
+.tags-projeto {
+  display: flex;
+  gap: 15px;
+}
+
+.tag {
+  padding: 3px 10px;
+  border-radius: 3px;
+}
+
+.descricao-projeto {
+  overflow: hidden;
+  max-height: 80px;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4; /* Limita o número de linhas */
+}
+
+.ver-mais {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--federal-blue);
+  cursor: pointer;
+}
+
+.anunciante {
+  font-weight: 600;
+}
+
+.tag.categoria {
+  background-color: #e3f5f0;
+  color: #70a08f;
+}
+
+.tag.formato {
+  background-color: #ddddf3;
+  color: #5859ad;
+}
+
+.tag.valor {
+  background-color: #ffecd3;
+  color: #e2852e;
+}
+
+#menu-inicial {
+  position: relative;
+  margin-bottom: 30px;
+}
+
+#menu-inicial .pagination {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translate(-50%, 50%);
+  display: flex;
+}
+
+#menu-inicial .pagination a {
+  display: flex;
+}
+
+#menu-inicial .pagination .icon {
+  font-variation-settings: "FILL" 0, "wght" 300, "GRAD" 0, "opsz" 40;
+}
+
+/* section configurações */
+
+.dados-acesso-section {
+  padding: 30px;
+  border-radius: 5px;
+  border: solid 1px var(--federal-blue);
+}
+
+#configuracoes .row .form-item {
+  width: 100%;
+}
+
+#configuracoes #email-input {
+  background-color: var(--white-flash);
+}
+
+#configuracoes .email-input-label {
+  position: relative;
+  top: -52px;
+  left: 15px;
+  display: inline-block; /* Para que a label se ajuste ao tamanho do texto */
+  background-color: transparent;
+  z-index: 1;
+}
+
+#configuracoes .email-input-label::before {
+  content: ""; /* Conteúdo vazio do pseudo-elemento */
+  position: absolute; /* Posição absoluta para cobrir a label */
+  top: 12px;
+  left: 0;
+  height: 20px; /* Altura igual à da label */
+  width: 100%; /* Metade da largura da label */
+  background-color: var(--white-flash); /* Cor do fundo da primeira metade */
+  z-index: -1; /* Para colocar o pseudo-elemento abaixo do conteúdo da label */
+}
+
+#configuracoes #email-input:focus {
+  border: solid 1px var(--federal-blue);
+}
+
+#configuracoes #email-input:focus + label {
+  color: var(--federal-blue);
+}
+
+#configuracoes .dados-acesso-section {
+  position: relative;
+}
+
+.content-section {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.section-options {
+  margin-top: 30px;
+  padding-bottom: 5px;
+  display: flex;
+  gap: 40px;
+  border-bottom: solid 1px var(--federal-blue);
+}
+
+.section-options a {
+  font-size: 14px;
+}
+
+#configuracoes #cancelBtn {
+  position: absolute;
+  bottom: 30px;
+  right: 200px;
+}
+
+.toggle-senha {
+  position: absolute;
+  bottom: 7px;
+  right: 15px;
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 40;
+}
+
+#excluirConta-section {
+  display: none;
+  justify-content: space-between;
+}
+
+#excluirConta-section .btn {
+  background-color: var(--light-coral);
+  width: 250px;
+}
+
+.col-explicacao {
+  max-width: 750px;
+  border-radius: 5px;
+  padding: 30px;
+  background-color: var(--white-flash);
+}
+
+.col-explicacao h2 {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.col h3 {
+  font-size: 18px;
+}
+
+.col ul {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
