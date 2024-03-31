@@ -23,8 +23,8 @@ session_start();
 
 <body id="inicio">
   <header class="header">
-    <a href="index.html">
-      <img src="img/logo-escura.png" alt="Logo do Portal de Oportunidades Acadêmicas" class="logo" style="height: 50px" />
+    <a href="index.php">
+      <img src="img/logo-escura.png" alt="Logo do Portal de Oportunidades Acadêmicas" class="logo" style="height: 40px" />
     </a>
 
     <nav class="menu-nav">

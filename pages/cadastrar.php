@@ -25,7 +25,7 @@ session_start();
 <body id="cadastrar">
   <header class="header">
     <a href="../index.php">
-      <img src="../img/logo-escura.png" alt="Logo do Portal de Oportunidades Acadêmicas" class="logo" style="height: 50px" />
+      <img src="../img/logo-escura.png" alt="Logo do Portal de Oportunidades Acadêmicas" class="logo" style="height: 40px" />
     </a>
   </header>
 

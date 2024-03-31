@@ -147,7 +147,7 @@ unset($_SESSION['projeto-atualizado']);
     <div class="container">
         <header class="header">
             <div class="logo">
-                <img src="../../img/logo-escura.png" alt="" srcset="" style="height: 50px" />
+                <img src="../../img/logo-escura.png" alt="" srcset="" style="height: 40px" />
             </div>
         </header>
 

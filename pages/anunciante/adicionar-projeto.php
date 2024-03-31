@@ -84,7 +84,7 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
     <div class="container">
         <header class="header">
             <div class="logo">
-                <img src="../../img/logo-escura.png" alt="" srcset="" style="height: 50px" />
+                <img src="../../img/logo-escura.png" alt="" srcset="" style="height: 40px" />
             </div>
         </header>
 
