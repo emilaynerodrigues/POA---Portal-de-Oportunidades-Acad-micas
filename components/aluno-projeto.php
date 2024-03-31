@@ -1,124 +1,86 @@
-<?php
-// o arquivo de conexão com o banco de dados
-include '../../php/conexao.php';
+<!-- informações do projeto -->
+<div class="projeto" data-categoria="<?php echo $projeto['categoria'] ?>">
+    <div class="head-projeto">
+        <div class="user-icon"></div>
+        <div class="projeto-info">
+            <h3 class="titulo-projeto"><?php echo $projeto['titulo']; ?></h3>
+            <p class="info-adicional">postado em
+                <span>
+                    <?php
+                    // formatando a data de postagem
+                    $timestamp = strtotime($projeto['dataPostagem']);
+                    $dataFormatada = date('d/m/Y', $timestamp);
+                    echo $dataFormatada;
+                    ?>
+                </span>
+                por <span class="anunciante" style="text-transform: capitalize;">
+                    <?php
+                    echo $projeto['nome_anunciante'];
+                    ?>
+                </span>
+            </p>
+        </div>
+    </div>
+    <div class="tags-projeto">
+        <span class="tag formato"><?php echo $projeto['formato']; ?></span>
+        <span class="tag categoria"><?php echo $projeto['categoria']; ?></span>
+        <span class="tag valor"><?php echo 'R$ ' . $projeto['valor']; ?></span>
+    </div>
+    <div class="descricao-projeto">
+        <p class="descricao-texto"><?php echo $projeto['descricao']; ?></p>
+    </div>
+    <!-- Botão para abrir o modal -->
+    <a href="#" onclick="abrirModal(this)" class="verMais" data-id="<?php echo $projeto['id']; ?>" data-titulo="<?php echo $projeto['titulo']; ?>" data-categoria="<?php echo $projeto['categoria']; ?>" data-formato="<?php echo $projeto['formato']; ?>" data-valor="<?php echo $projeto['valor']; ?>" data-descricao="<?php echo $projeto['descricao']; ?>">Ver mais</a>
+</div>
 
-
-try {
-    // estabelecendo a conexão com o banco de dados
-    $conn = conectar();
-
-    // preparando e executando a consulta SQL para buscar os projetos
-    $stmt = $conn->prepare("SELECT * FROM projeto");
-    $stmt->execute();
-
-    // obtendo os resultados como um array associativo
-    $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // verificando se há projetos
-    if ($projetos) {
-        // analizando cada projeto dentro da tabela
-        foreach ($projetos as $projeto) {
-            // exibindo os dados do projeto dentro da estrutura HTML do projeto
-?>
-
-            <body>
-                <div class="projeto">
-                    <div class="head-projeto">
-                        <div class="user-icon"></div>
-                        <div class="projeto-info">
-                            <!-- titulo do projeto -->
-                            <h3 class="titulo-projeto">
-                                <?php echo $projeto['titulo'] ?>
-                            </h3>
-                            <p class="info-adicional">por
-                                <!-- nome do autor  -->
-                                <span class="anunciante">
-                                    <?php echo $projeto['autor'] ?>
-                                </span>
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="tags-projeto">
-                        <!-- formato de trabalho (remoto ou presencial) -->
-                        <span class="tag formato">
-                            <?php echo $projeto['formato'] ?>
-                        </span>
-
-                        <!-- categoria -->
-                        <span class="tag categoria">
-                            <?php echo $projeto['categoria'] ?>
-                        </span>
-
-                        <!-- valor -->
-                        <span class="tag valor">
-                            <?php echo 'R$ ' . $projeto['valor'] ?>
-                        </span>
-                    </div>
-
-                    <!-- descrição do projeto -->
-                    <div class="descricao-projeto">
-                        <p class="descricao-texto">
-                            <?php echo $projeto['descricao'] ?>
-                        </p>
-                    </div>
-
-                    <!-- Passando a descrição como parâmetro para a função abrirModal() -->
-                    <a href="#" class="ver-mais" data-titulo="<?php echo $projeto['titulo']; ?>" data-autor="<?php echo $projeto['autor']; ?>" data-categoria="<?php echo $projeto['categoria']; ?>" data-formato="<?php echo $projeto['formato']; ?>" data-valor="<?php echo $projeto['valor']; ?>" data-descricao="<?php echo $projeto['descricao']; ?>" onclick="abrirModal(this)">Ver mais</a>
-                </div>
-            </body>
-<?php
-        }
-    } else {
-        // caso não exista projetos, exiba uma mensagem indicando isso
-        echo "<p>Nenhum projeto encontrado.</p>";
-    }
-} catch (PDOException $e) {
-    // em caso de erro, exiba a mensagem de erro
-    echo "Erro: " . $e->getMessage();
-}
-?>
-
-<!-- modal para exibir detalhes do projeto -->
-
-<div id="projectModal" class="modal">
+<!-- modal com todas as informações do projeto + crud -->
+<div id="projectModal" class="modal modal-confirm">
     <div class="modal-content">
-        <!-- icon para fechar o modal -->
-        <span class="close-icon material-symbols-outlined" onclick="fecharModal()"> close </span>
+        <!-- Icon para fechar o modal -->
+        <span id="closeIcon" class="close-icon material-symbols-outlined"> close </span>
 
         <div class="head-projeto">
             <div class="user-icon"></div>
             <div class="projeto-info">
-                <!-- titulo do projeto -->
+                <!-- Título do projeto -->
                 <h3 id="titulo-projeto" class="titulo-projeto"></h3>
-                <p class="info-adicional">por
-                    <!-- nome do autor  -->
+                <p class="info-adicional">por <span style="text-transform: capitalize;" class="anunciante"><?php echo $projeto['nome_anunciante']; ?></span>
+                    <!-- Nome do autor -->
                     <span id="autor-projeto" class="anunciante"></span>
                 </p>
             </div>
         </div>
 
         <div class="tags-projeto">
-            <!-- formato de trabalho (remoto ou presencial) -->
-            <span id="formato-projeto" class="tag formato">
-            </span>
+            <!-- Formato de trabalho (remoto ou presencial) -->
+            <span id="formato-projeto" class="tag formato"></span>
 
-            <!-- categoria -->
-            <span id="categoria-projeto" class="tag categoria">
-            </span>
+            <!-- Categoria -->
+            <span id="categoria-projeto" class="tag categoria"></span>
 
-            <!-- valor -->
-            <span id="valor-projeto" class="tag valor">
-            </span>
+            <!-- Valor -->
+            <span id="valor-projeto" class="tag valor"></span>
         </div>
 
-        <!-- parágrafo para exibir a descrição do projeto -->
-        <p id="descricao-projeto" class="descricao-texto"> </p>
+        <!-- Parágrafo para exibir a descrição do projeto -->
+        <p id="descricao-projeto" class="descricao-texto"></p>
 
-        <div class="btn-wrapper">
-            <a class="btn normal-btn outline-btn">Candidatos inscritos</a>
-            <a class="btn small-btn delete-btn">Excluir projeto</a>
-            <a href="../../pages/anunciante/alterar-projeto.php" class="btn small-btn">Alterar dados</a>
+        <div class="btn-wrapper btn-candidatar">
+            <a href="#" id="candidatar" class="btn small-btn">Me candidatar</a>
+        </div>
+    </div>
+</div>
+
+<!-- modal de confirmação de exclusão de projeto -->
+<div id="modalExcluir" class='modal modal-delete'>
+    <div class='modal-content'>
+        <a href='../../pages/anunciante/home.php'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
+        <span class='icon material-symbols-outlined'> help </span>
+        <h3>Seus dados serão perdidos!</h3>
+        <p>Tem certeza que deseja excluir o projeto? Todos os dados serão perdidos!</p>
+        <div class='btn-wrapper'>
+            <a href='../../pages/anunciante/home.php' class='btn small-btn cancel-btn modal-close'>Cancelar</a>
+            <a href='' id="confirmDeleteButton" data-id="<?php echo $projeto['id'] ?>" class='btn small-btn'>Excluir</a>
         </div>
     </div>
 </div>
@@ -128,29 +90,26 @@ try {
     function abrirModal(link) {
         var modal = document.getElementById("projectModal");
         var tituloProjeto = document.getElementById("titulo-projeto");
-        var autorProjeto = document.getElementById("autor-projeto");
         var categoriaProjeto = document.getElementById("categoria-projeto");
         var formatoProjeto = document.getElementById("formato-projeto");
         var valorProjeto = document.getElementById("valor-projeto");
         var descricaoProjeto = document.getElementById("descricao-projeto");
+        currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
 
-        // obtendo a descrição do projeto do atributo de dados do link
+
+        // obtendo os dados do projeto do atributo de dados do link
         var titulo = link.getAttribute("data-titulo");
-        var autor = link.getAttribute("data-autor");
         var categoria = link.getAttribute("data-categoria");
         var formato = link.getAttribute("data-formato");
         var valor = link.getAttribute("data-valor");
         var descricao = link.getAttribute("data-descricao");
 
-
-        // atualizando o conteudo do modal com os dados vindos do banco de dados pela prop "data-"
+        // atualizando o conteúdo do modal com os dados do projeto
         tituloProjeto.textContent = titulo;
-        autorProjeto.textContent = autor;
         categoriaProjeto.textContent = categoria;
         formatoProjeto.textContent = formato;
         valorProjeto.textContent = "R$ " + valor;
         descricaoProjeto.textContent = descricao;
-
         // abrindo o modal
         modal.style.display = "flex";
     }
@@ -160,4 +119,11 @@ try {
         var modal = document.getElementById("projectModal");
         modal.style.display = "none";
     }
+
+    // atribuindo evento de clique ao ícone de fechamento
+    var closeIcon = document.getElementById("closeIcon");
+    if (closeIcon) {
+        closeIcon.addEventListener("click", fecharModal);
+    }
+
 </script>

@@ -4,7 +4,6 @@ body {
   color: var(--rich-black);
 }
 
-
 aside {
   height: 100vh;
   position: fixed;
@@ -105,7 +104,6 @@ aside .material-symbols-outlined {
   padding: 0 30px;
   box-shadow: 0px 2px 2px 0px #1b131325;
 }
-
 
 /* profile */
 .profile {
@@ -386,12 +384,12 @@ main section h4 {
   width: 250px;
 }
 
-#confirmCheckbox{
+#confirmCheckbox {
   height: 15px;
   width: 15px;
 }
 
-.checkbox-input{
+.checkbox-input {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -424,4 +422,82 @@ main section h4 {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+/* ------------------------ aluno ------------------------*/
+/* categorias */
+.swiper-wrapper {
+  /* tamanho pra < 1440*/
+  max-width: 1262.36px;
+}
+
+.categoria-slide {
+  max-height: 155px;
+  max-width: 150px;
+  border-radius: 5px;
+  padding: 20px;
+  display: flex !important;
+  flex-direction: column;
+  gap: 10px;
+  background-color: var(--white-flash);
+  cursor: pointer;
+}
+
+.categoria-slide .categoria-icon {
+  height: 30px;
+  width: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--medium-blue);
+}
+
+.categoria-slide .categoria-icon span {
+  color: var(--white);
+  font-size: 20px;
+  font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 40;
+}
+
+.categoria-slide h3 {
+  font-size: 14px;
+}
+
+.categoria-slide p {
+  font-size: 10px;
+}
+
+.swiper-btn {
+  height: 25px !important;
+  width: 25px !important;
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  background-color: var(--white);
+  position: absolute !important;
+  top: 70% !important;
+  z-index: 10;
+}
+
+.swiper-btn:after {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  color: var(--federal-blue);
+}
+
+#button-prev {
+  left: 0px;
+  opacity: 1;
+}
+
+#button-next {
+  right: 0px;
+  opacity: 1;
+}
+
+.categorias-wrapper h4 {
+  margin-bottom: 20px;
+}
+
+.btn-candidatar{
+  justify-content: end !important;
 }

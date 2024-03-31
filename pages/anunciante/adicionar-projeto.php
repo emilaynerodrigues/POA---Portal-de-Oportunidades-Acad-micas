@@ -1,5 +1,25 @@
 <?php
-session_start()
+session_start();
+
+// Verificando se o usuário está logado como aluno
+if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
+    // Se não estiver logado como aluno, redirecione para a página de login
+    header('Location: ../../index.php');
+    $_SESSION['mensagem'] =
+        "<!-- Modal de confirmação - Acesso não autorizado! -->
+      <div class='modal modal-session'>
+        <div class='modal-content'>
+            <span class='icon material-symbols-outlined'> cancel </span>
+            <h3>Acesso não autorizado!</h3>
+            <p>Você não possui autorização para acessar essa parte do sistema. Por favor, volte a página de login e entre com seus dados.</p>
+            <div class='btn-wrapper'>
+                <a href='../../pages/login.php' class='btn small-btn modal-close'>Entendi</a>
+            </div>
+        </div>
+      </div>";
+    exit();
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -94,7 +114,7 @@ session_start()
                                     <option value="Arte e Design">Arte e Design</option>
                                     <option value="Beleza e Estética">Beleza e Estética</option>
                                     <option value="Gestão e Finanças">Gestão e Finanças</option>
-                                    <option value="Suporte e Manutenção">Manutenção de Computadores</option>
+                                    <option value="Manutenção de Computadores">Manutenção de Computadores</option>
                                     <option value="Marketing e Vendas">Marketing e Vendas</option>
                                     <option value="Projetos Sociais">Projetos Sociais</option>
                                     <option value="Suporte e Administrativo">Suporte e Administrativo</option>

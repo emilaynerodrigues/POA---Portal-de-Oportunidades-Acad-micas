@@ -1,7 +1,7 @@
-<form action="../../php/anunciante/script_atualizarSenha.php" method="post">
+<form action="../../php/aluno/script_atualizarSenha.php" method="post">
     <!-- input de email - apenas de leitura -->
     <div class="form-item">
-        <input type="email" name="email" id="email-input" value="<?php echo $email_anunciante ?>" readonly>
+        <input type="email" name="email" id="email-input" value="<?php echo $email_aluno ?>" readonly>
         <label for="email-input" class="email-input-label">E-mail*</label>
     </div>
 

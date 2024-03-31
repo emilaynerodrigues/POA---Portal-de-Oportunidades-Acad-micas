@@ -3,7 +3,7 @@
 session_start();
 
 // Verificando se o usuário está logado como anunciante
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Anunciante') {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
     // Se não estiver logado como anunciante, redirecione para a página de login
     header('Location: ../../index.php');
     $_SESSION['mensagem'] =
