@@ -25,7 +25,7 @@ document.getElementById("categoria5").addEventListener("click", function () {
 
 // Adiciona evento de clique para a categoria de Projetos sociais
 document.getElementById("categoria6").addEventListener("click", function () {
-  mostrarProjetosPorCategoria("Projetos sociais");
+  mostrarProjetosPorCategoria("Projetos Sociais");
 });
 
 // Adiciona evento de clique para a categoria de Suporte Administrativo

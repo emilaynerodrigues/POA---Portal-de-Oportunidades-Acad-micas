@@ -8,13 +8,14 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
     header('Location: ../../index.php');
     $_SESSION['mensagem'] =
         "<!-- Modal de confirmação - Acesso não autorizado! -->
-    <div class='modal modal-session'>
+    <div class='modal modal-session' id='modalMensagem'>
       <div class='modal-content'>
+      <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
           <span class='icon material-symbols-outlined'> cancel </span>
           <h3>Acesso não autorizado!</h3>
           <p>Você não possui autorização para acessar essa parte do sistema. Por favor, volte a página de login e entre com seus dados.</p>
           <div class='btn-wrapper'>
-              <a href='../../pages/login.php' class='btn small-btn modal-close'>Entendi</a>
+              <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
           </div>
       </div>
     </div>";

@@ -32,14 +32,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Senha atualizada com sucesso
             $_SESSION['mensagem'] =
                 "<!-- Modal de confirmação - Senha atualizada com sucesso! -->
-            <div class='modal modal-session'>
+            <div class='modal modal-session' id='modalMensagem'>
             <div class='modal-content'>
-            <a href='../../pages/anunciante/home.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+            <a href='#' class='closeIcon'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
             <span class='icon material-symbols-outlined'> check_circle </span>
             <h3>Senha alterada com sucesso!</h3>
             <p> Sua senha foi alterada com sucesso. Agora você pode utilizar a nova senha para acessar sua conta com total segurança.</p>
             <div class='btn-wrapper'>
-            <a href='../../pages/anunciante/home.php' class='btn small-btn modal-close'>Entendi</a>
+            <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
             </div>
             </div>
             </div>";
@@ -49,14 +49,14 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Ocorreu um erro ao atualizar a senha
             $_SESSION['mensagem'] =
                 "<!-- Modal de confirmação -Erro ao atualizar sua senha! -->
-           <div class='modal modal-session'>
+           <div class='modal modal-session' id='modalMensagem'>
             <div class='modal-content'>
-            <a href='../../pages/anunciante/home.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+            <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
            <span class='icon material-symbols-outlined'> cancel </span>
            <h3>Erro ao atualizar sua senha!</h3>
            <p> Desculpe, ocorreu um erro ao tentar alterar sua senha. Por favor, tente novamente mais tarde.</p>
            <div class='btn-wrapper'>
-           <a href='../../pages/anunciante/home.php' class='btn small-btn modal-close'>Entendi</a>
+           <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
            </div>
            </div>
            </div>";
@@ -68,13 +68,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $_SESSION['mensagem'] =
             "<!-- Modal de confirmação - Senha atual incorreta! -->
            <div class='modal modal-session'>
-            <div class='modal-content'>
-            <a href='../../pages/anunciante/home.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+            <div class='modal-content' id='modalMensagem'>
+            <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
            <span class='icon material-symbols-outlined'> cancel </span>
            <h3>Senha atual incorreta!</h3>
            <p> Ops! Parece que a senha atual fornecida está incorreta. Por favor, verifique se digitou corretamente sua senha atual e tente novamente.</p>
            <div class='btn-wrapper'>
-           <a href='../../pages/anunciante/home.php' class='btn small-btn modal-close'>Entendi</a>
+           <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
            </div>
            </div>
            </div>";

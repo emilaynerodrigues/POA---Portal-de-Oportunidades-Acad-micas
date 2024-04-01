@@ -15,7 +15,7 @@
         </div>
     </div>
     <div class="tags-projeto">
-        <span class="tag formato"><?php echo $projeto['formato']; ?></span>
+        <span style="text-transform: capitalize;" class="tag formato"><?php echo $projeto['formato']; ?></span>
         <span class="tag categoria"><?php echo $projeto['categoria']; ?></span>
         <span class="tag valor"><?php echo 'R$ ' . $projeto['valor']; ?></span>
     </div>
@@ -46,7 +46,7 @@
 
         <div class="tags-projeto">
             <!-- Formato de trabalho (remoto ou presencial) -->
-            <span id="formato-projeto" class="tag formato"></span>
+            <span style="text-transform: capitalize;" id="formato-projeto" class="tag formato"></span>
 
             <!-- Categoria -->
             <span id="categoria-projeto" class="tag categoria"></span>
@@ -69,13 +69,13 @@
 <!-- modal de confirmação de exclusão de projeto -->
 <div id="modalExcluir" class='modal modal-delete'>
     <div class='modal-content'>
-        <a href='../../pages/anunciante/home.php'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
+        <a href='#' class="closeIconExcluir"><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
         <span class='icon material-symbols-outlined'> help </span>
         <h3>Seus dados serão perdidos!</h3>
         <p>Tem certeza que deseja excluir o projeto? Todos os dados serão perdidos!</p>
         <div class='btn-wrapper'>
-            <a href='../../pages/anunciante/home.php' class='btn small-btn cancel-btn modal-close'>Cancelar</a>
-            <a href='' id="confirmDeleteButton" data-id="<?php echo $projeto['id'] ?>" class='btn small-btn'>Excluir</a>
+            <a href='#' class='btn small-btn cancel-btn modal-close closeIconExcluir'>Cancelar</a>
+            <a href='#' id="confirmDeleteButton" data-id="<?php echo $projeto['id'] ?>" class='btn small-btn'>Excluir</a>
         </div>
     </div>
 </div>
@@ -135,7 +135,10 @@
         modalProjeto.style.display = "none";
 
         var confirmDeleteButton = document.getElementById("confirmDeleteButton");
-        currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
+        // currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
+
+        console.log("ID do Projeto:", currentProjectId); // Adicionando console.log para verificar o ID do projeto
+
 
         // Configurando o link de exclusão com o ID correto do projeto
         confirmDeleteButton.href = "../../php/anunciante/script_excluirProjeto.php?id=" + currentProjectId;
@@ -143,4 +146,20 @@
         // Abrindo o modal de confirmação de exclusão
         modal.style.display = "flex";
     }
+
+    // função para fechar o modal de excluir
+    function fecharModalExcluir() {
+        var modal = document.getElementById("modalExcluir");
+        var modalProjeto = document.getElementById("projectModal");
+
+        modal.style.display = "none"; //fechando modal de exclusão
+        modalProjeto.style.display = "flex"; //mostrando de volta o modal do projeto
+    }
+
+    // atribuindo evento de clique ao ícone de fechamento
+    var closeIconExcluir = document.querySelectorAll(".closeIconExcluir");
+    closeIconExcluir.forEach(function(closeIconExcluir) {
+        // Adicionando um event listener para o evento de clique em cada closeIcon
+        closeIconExcluir.addEventListener("click", fecharModalExcluir);
+    });
 </script>

@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="tags-projeto">
-        <span class="tag formato"><?php echo $projeto['formato']; ?></span>
+        <span style="text-transform: capitalize;" class="tag formato"><?php echo $projeto['formato']; ?></span>
         <span class="tag categoria"><?php echo $projeto['categoria']; ?></span>
         <span class="tag valor"><?php echo 'R$ ' . $projeto['valor']; ?></span>
     </div>
@@ -33,11 +33,11 @@
     <a href="#" onclick="abrirModal(this)" class="verMais" data-id="<?php echo $projeto['id']; ?>" data-titulo="<?php echo $projeto['titulo']; ?>" data-categoria="<?php echo $projeto['categoria']; ?>" data-formato="<?php echo $projeto['formato']; ?>" data-valor="<?php echo $projeto['valor']; ?>" data-descricao="<?php echo $projeto['descricao']; ?>">Ver mais</a>
 </div>
 
-<!-- modal com todas as informações do projeto + crud -->
+<!-- modal com todas as informações do projeto + opção de se candidatar -->
 <div id="projectModal" class="modal modal-confirm">
     <div class="modal-content">
         <!-- Icon para fechar o modal -->
-        <span id="closeIcon" class="close-icon material-symbols-outlined"> close </span>
+        <span class="close-icon material-symbols-outlined" id="closeIcon"> close </span>
 
         <div class="head-projeto">
             <div class="user-icon"></div>
@@ -53,7 +53,7 @@
 
         <div class="tags-projeto">
             <!-- Formato de trabalho (remoto ou presencial) -->
-            <span id="formato-projeto" class="tag formato"></span>
+            <span style="text-transform: capitalize;" id="formato-projeto" class="tag formato"></span>
 
             <!-- Categoria -->
             <span id="categoria-projeto" class="tag categoria"></span>
@@ -66,21 +66,21 @@
         <p id="descricao-projeto" class="descricao-texto"></p>
 
         <div class="btn-wrapper btn-candidatar">
-            <a href="#" id="candidatar" class="btn small-btn">Me candidatar</a>
+            <a href="#" onclick="abrirModalCandidatar(this)" data-id="<?php echo $projeto['id']; ?>" class="btn small-btn">Me candidatar</a>
         </div>
     </div>
 </div>
 
-<!-- modal de confirmação de exclusão de projeto -->
-<div id="modalExcluir" class='modal modal-delete'>
-    <div class='modal-content'>
-        <a href='../../pages/anunciante/home.php'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
-        <span class='icon material-symbols-outlined'> help </span>
-        <h3>Seus dados serão perdidos!</h3>
-        <p>Tem certeza que deseja excluir o projeto? Todos os dados serão perdidos!</p>
-        <div class='btn-wrapper'>
-            <a href='../../pages/anunciante/home.php' class='btn small-btn cancel-btn modal-close'>Cancelar</a>
-            <a href='' id="confirmDeleteButton" data-id="<?php echo $projeto['id'] ?>" class='btn small-btn'>Excluir</a>
+<!-- modal de confirmação de candidatura -->
+<div id="modalCandidatar" class="modal modal-delete">
+    <div class="modal-content">
+        <a href="#" class="closeIconCandidatar"><span class="modal-close close-icon material-symbols-outlined"> close </span></a>
+        <span class="icon material-symbols-outlined"> help </span>
+        <h3>Deseja se candidatar?</h3>
+        <p>Parece que você se interessou no projeto. Tem certeza que deseja se candidatar?</p>
+        <div class="btn-wrapper">
+            <a href="#" class="btn small-btn cancel-btn modal-close closeIconCandidatar">Cancelar</a>
+            <a href="#" id="confirmCandidatura" data-id="<?php echo $projeto['id'] ?>" class="btn small-btn">Candidatar</a>
         </div>
     </div>
 </div>
@@ -114,7 +114,7 @@
         modal.style.display = "flex";
     }
 
-    // função para fechar o modal
+    // função para fechar o modal do projeto
     function fecharModal() {
         var modal = document.getElementById("projectModal");
         modal.style.display = "none";
@@ -126,4 +126,38 @@
         closeIcon.addEventListener("click", fecharModal);
     }
 
+    // função para abrir o modal de confirmação de exclusão
+    function abrirModalCandidatar(link) {
+        var modal = document.getElementById("modalCandidatar");
+        var modalProjeto = document.getElementById("projectModal");
+        // fechando modal dos projetos
+        modalProjeto.style.display = "none";
+        
+        var confirmCandidatura = document.getElementById("confirmCandidatura");
+        // currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
+        
+        // console.log("ID do Projeto:", currentProjectId); // Adicionando console.log para verificar o ID do projeto
+        // Configurando o link de exclusão com o ID correto do projeto
+        confirmCandidatura.href = "../../php/aluno/script_candidatarProjeto.php?id=" + currentProjectId;
+
+
+        // Abrindo o modal de confirmação de exclusão
+        modal.style.display = "flex";
+    }
+
+    // função para fechar o modal de candidatura
+    function fecharModalCandidatar() {
+        var modal = document.getElementById("modalCandidatar");
+        var modalProjeto = document.getElementById("projectModal");
+
+        modal.style.display = "none"; //fechando modal de candidatura
+        modalProjeto.style.display = "flex"; //mostrando de volta o modal do projeto
+    }
+
+    // atribuindo evento de clique ao ícone de fechamento
+    var closeIconCandidatar = document.querySelectorAll(".closeIconCandidatar");
+    closeIconCandidatar.forEach(function(closeIconCandidatar) {
+        // Adicionando um event listener para o evento de clique em cada closeIcon
+        closeIconCandidatar.addEventListener("click", fecharModalCandidatar);
+    });
 </script>

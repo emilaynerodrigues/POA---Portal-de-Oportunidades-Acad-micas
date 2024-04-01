@@ -40,13 +40,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header('Location: ../../index.php');
             $_SESSION['mensagem'] =
                 "<!-- Modal de confirmação - Conta excluída com sucesso -->
-                <div class='modal modal-session'>
+                <div class='modal modal-session' id='modalMensagem'>
                 <div class='modal-content'>
+                     <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
                     <span class='icon material-symbols-outlined'> account_circle_off </span>
                     <h3>Conta excluída com sucesso!</h3>
                     <p>Sua conta foi removida do sistema com sucesso. Todos os dados associados foram permanentemente excluídos. Sentiremos sua falta, mas esperamos tê-lo de volta em breve, caso decida retornar.</p>
                     <div class='btn-wrapper'>
-                        <a href='../../index.php' class='btn small-btn modal-close'>Entendi</a>
+                        <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
                     </div>
                 </div>
                 </div>";
@@ -56,14 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // Se ocorrer um erro, desfazer a transação e exibir uma mensagem de erro
             $_SESSION["projeto-excluido"] = " 
             <!-- Modal de confirmação - Erro ao excluir a conta! -->
-            <div class='modal modal-session'>
+            <div class='modal modal-session' id='modalMensagem'>
                 <div class='modal-content'>
-                    <a href='../../pages/anunciante/home.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+                    <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
                     <span class='icon material-symbols-outlined'> check_circle </span>
                     <h3>Erro ao excluir conta!</h3>
                     <p>Ocorreu um erro ao excluir a conta. Por favor, tente novamente mais tarde.</p>
                     <div class='btn-wrapper'>
-                        <a href='../../pages/anunciante/home.php' class='btn small-btn modal-close'>Entendi</a>
+                        <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
                     </div>
                 </div>
             </div>";

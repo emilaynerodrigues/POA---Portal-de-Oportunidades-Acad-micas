@@ -195,11 +195,11 @@ main section h4 {
   max-width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: 35px;
+  gap: 20px;
 }
 
 .projeto {
-  width: calc(50% - 18px);
+  width: calc(50% - 10px);
   border-radius: 5px;
   border: solid 1px var(--federal-blue);
   padding: 30px;

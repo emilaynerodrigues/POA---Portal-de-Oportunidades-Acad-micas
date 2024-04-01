@@ -2,7 +2,7 @@
 session_start();
 
 // Verificando se o usuário está logado como aluno
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'Aluno') {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'aluno') {
   // Se não estiver logado como aluno, redirecione para a página de login
   header('Location: ../../index.php');
   $_SESSION['mensagem'] =
@@ -432,6 +432,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <!-- script swiper js -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
+  <!-- script de configuração do swiper -->
   <script>
     var swiper = new Swiper(".mySwiper", {
       slidesPerView: 1,

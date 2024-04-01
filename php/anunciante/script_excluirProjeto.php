@@ -24,62 +24,86 @@ $result_projeto = $conn->prepare($projeto);
 //6 - executando a query
 $result_projeto->execute();
 
-//7 - verificar se encontrou algum registro na consulta
-if ($result_projeto->rowCount() != 0) { //se for diferente de 0
-    //excluindo registro de projeto
-    $query_delete_projeto = "DELETE FROM projeto WHERE id=$id";
+// Verificar se encontrou algum registro na consulta
+if ($result_projeto->rowCount() != 0) {
+    // Consultar se existem candidaturas associadas ao projeto
+    $sql_verificar_candidaturas = "SELECT COUNT(*) AS total_candidaturas FROM candidatura WHERE projeto_id = :projeto_id";
+    $stmt_verificar_candidaturas = $conn->prepare($sql_verificar_candidaturas);
+    $stmt_verificar_candidaturas->bindParam(':projeto_id', $id);
+    $stmt_verificar_candidaturas->execute();
+    $row = $stmt_verificar_candidaturas->fetch(PDO::FETCH_ASSOC);
 
-    //preparando exclusão
-    $result_delete_projeto = $conn->prepare($query_delete_projeto);
-
-    //executando o delete
-    if ($result_delete_projeto->execute()) {
+    // Verificar se há candidaturas associadas ao projeto
+    if ($row['total_candidaturas'] > 0) {
+        // Se houver candidaturas, redirecionar de volta com mensagem de erro
         header("Location: ../../pages/anunciante/home.php");
-        $_SESSION["projeto-excluido"] = " 
-        <!-- Modal de confirmação - Projeto excluído! -->
-        <div class='modal modal-session'>
-            <div class='modal-content'>
-                <a href='../../pages/anunciante/home.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
-                <span class='icon material-symbols-outlined'> check_circle </span>
-                <h3>Projeto excluído com sucesso!</h3>
-                <p>O projeto foi removido permanentemente do sistema</p>
-                <div class='btn-wrapper'>
-                    <a href='../../pages/anunciante/home.php' class='btn small-btn modal-close'>Entendi</a>
+        $_SESSION["projeto-excluido"] = "
+            <!-- Modal de confirmação - Projeto não pode ser excluído! -->
+            <div class='modal modal-session' id='modalMensagem'>
+                <div class='modal-content'>
+                    <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
+                    <span class='icon material-symbols-outlined'> check_circle </span>
+                    <h3>Projeto não pode ser excluído!</h3>
+                    <p>Este projeto não pode ser excluído porque existem candidaturas de alunos associadas a ele.</p>
+                    <div class='btn-wrapper'>
+                        <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
+                    </div>
                 </div>
-            </div>
-        </div>";
+            </div>";
         exit();
     } else {
-        header("Location: ../../pages/anunciante/home.php");
-        $_SESSION["projeto-excluido"] = " 
-        <!-- Modal de confirmação - Projeto não excluído! -->
-        <div class='modal modal-session'>
-            <div class='modal-content'>
-                <a href='../../pages/anunciante/home.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
-                <span class='icon material-symbols-outlined'> cancel </span>
-                <h3>Projeto não excluído!</h3>
-                <p>Não foi possível concluir a exclusão do seu projeto. Tente novamente mais tarde!</p>
-                <div class='btn-wrapper'>
-                    <a href='../../pages/anunciante/home.php' class='btn small-btn modal-close'>Entendi</a>
+        // Se não houver candidaturas, proceder com a exclusão do projeto como antes
+        $query_delete_projeto = "DELETE FROM projeto WHERE id=$id";
+
+        $result_delete_projeto = $conn->prepare($query_delete_projeto);
+
+        if ($result_delete_projeto->execute()) {
+            header("Location: ../../pages/anunciante/home.php");
+            $_SESSION["projeto-excluido"] = "
+            <!-- Modal de confirmação - Projeto excluído! -->
+            <div class='modal modal-session' id='modalMensagem'>
+                <div class='modal-content'>
+                    <a href='#' class='closeIcon'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+                    <span class='icon material-symbols-outlined'> check_circle </span>
+                    <h3>Projeto excluído com sucesso!</h3>
+                    <p>O projeto foi removido permanentemente do sistema</p>
+                    <div class='btn-wrapper'>
+                        <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
+                    </div>
                 </div>
-            </div>
-        </div>";
-        exit();
+            </div>";
+            exit();
+        } else {
+            header("Location: ../../pages/anunciante/home.php");
+            $_SESSION["projeto-excluido"] = "
+                <!-- Modal de confirmação - Projeto não excluído! -->
+                <div class='modal modal-session' id='modalMensagem'>
+                    <div class='modal-content'>
+                        <a href='#' class='closeIcon'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+                        <span class='icon material-symbols-outlined'> cancel </span>
+                        <h3>Projeto não excluído!</h3>
+                        <p>Não foi possível concluir a exclusão do seu projeto. Tente novamente mais tarde!</p>
+                        <div class='btn-wrapper'>
+                            <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
+                        </div>
+                    </div>
+                </div>";
+            exit();
+        }
     }
 } else {
     $_SESSION["projeto-excluido"] = " 
     <!-- Modal de confirmação - Projeto não encontrado! -->
-    <div class='modal modal-session'>
+    <div class='modal modal-session' id='modalMensagem'>
         <div class='modal-content'>
-            <a href='../../pages/anunciante/home.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+            <a href='#' class='closeIcon'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
             <span class='icon material-symbols-outlined'> cancel </span>
             <h3>Projeto não encontrado!</h3>
             <p>Não foi possível encontrar seu projeto em nossa base de dados. Tente novamente mais tarde!</p>
             <div class='btn-wrapper'>
-                <a href='../../pages/anunciante/home.php' class='btn small-btn modal-close'>Entendi</a>
+                <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
             </div>
         </div>
     </div>";
+    exit();
 }
-
-//script de excluir pode ser testado
