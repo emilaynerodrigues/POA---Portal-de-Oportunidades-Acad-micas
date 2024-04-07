@@ -45,11 +45,10 @@ $pagina_atual = isset($_GET['page']) ? $_GET['page'] : 1; // Obter a página atu
 $inicio = ($pagina_atual - 1) * $limite_result; // Calcular o início da seleção de registros
 
 // Consulta para obter os projetos do anunciante atualmente logado, ordenados pela data de postagem em ordem decrescente (mais recentes primeiro)
-$stmt = $conn->prepare("SELECT * FROM projeto WHERE anunciante_id = :anunciante_id ORDER BY dataPostagem DESC LIMIT $inicio, $limite_result");
-$stmt->bindValue(":anunciante_id", $user_id);
-$stmt->execute();
-$projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
+$stmt_projeto = $conn->prepare("SELECT * FROM projeto WHERE anunciante_id = :anunciante_id ORDER BY dataPostagem DESC LIMIT $inicio, $limite_result");
+$stmt_projeto->bindValue(":anunciante_id", $user_id);
+$stmt_projeto->execute();
+$projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
 
 ?>
 
@@ -116,7 +115,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- dados do anuciante -->
       <li>
-        <a href="#dados-anuciante">
+        <a href="#dados-anuciante" id="dados-anuciante-link"  >
           <span class="tooltip">Dados do anuciante</span>
           <span class="material-symbols-outlined"> frame_person </span>
           <span class="menu-item-label">Dados do anuciante</span>
@@ -134,7 +133,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- Opção de logout -->
       <li class="logout">
-        <a href="../../php/script_logout.php">
+        <a href="#sair" id="sair-link" onclick="abrirModalSair(event)">
           <span class="tooltip">Sair</span>
           <span class="material-symbols-outlined">logout</span>
           <span class="menu-item-label">Sair</span>
@@ -146,6 +145,22 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </aside>
 
   <div class="container">
+
+    <!-- modal confirmação de logout -->
+    <div id="modalMensagem" class='modal modal-session' style='display: none;'>
+      <div class='modal-content'>
+        <a href="home.php"><span class="close-icon material-symbols-outlined closeIcon"> close </span></a>
+
+        <span class='icon material-symbols-outlined'> cancel </span>
+        <h3>Está saindo?</h3>
+        <p>Tem certeza de que deseja fazer sair do sistema?</p>
+        <div class='btn-wrapper'>
+          <a href='home.php' class='btn small-btn cancel-btn closeIcon'>Cancelar</a>
+          <a href="../../php/script_logout.php" class="btn small-btn">Sim, sair</a>
+        </div>
+      </div>
+    </div>
+
     <header class="header">
       <div class="logo">
         <img src="../../img/logo-escura.png" alt="" srcset="" style="height: 40px" />
@@ -218,7 +233,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <!-- menu de opções -->
           <div class="section-options">
             <a href="#" class="section-link active" data-target="dadosAcesso-section">Dados de Acesso</a>
-            <a href="#" class="section-link" data-target="excluirConta-section">Excluir Conta</a>
+            <a href="#" class="section-link" data-target="excluirConta-section">Desativar Conta</a>
           </div>
 
           <!-- div - dados de acesso -->
@@ -233,34 +248,32 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <!-- primeira coluna -->
             <div class="col">
               <!-- pergunta -->
-              <form action="../../php/anunciante/script_excluirConta.php" method="post">
-                <h3>Você tem certeza que deseja excluir sua conta no POA?</h3>
+              <form action="../../php/anunciante/script_desativarConta.php" method="post">
+                <h3>Você tem certeza que deseja desativar sua conta no POA?</h3>
                 <!-- confirmação com checkbox' -->
                 <label class="checkbox-input">
                   <input type="checkbox" name="confirmCheckbox" id="confirmCheckbox" required>
-                  <span>Sim, tenho certeza que quero excluir minha conta</span>
+                  <span>Sim, tenho certeza que quero desativar minha conta</span>
                 </label>
 
                 <!-- button para excluir conta -->
-                <button type="submit" class="excluirConta btn">Excluir Conta</button>
+                <button type="submit" class="excluirConta btn">Desativar Conta</button>
               </form>
             </div>
 
             <!-- segunda coluna -->
             <div class="col col-explicacao">
-              <h2>Excluir conta</h2>
-              <p>Ao excluir sua conta, todas as informações associadas a ela serão permanentemente removidas do nosso sistema. Isso inclui o seguinte:</p>
+              <h2>Desativar conta</h2>
+              <p>Ao desativar sua conta, todos os seus dados permanecerão armazenados em nosso sistema por um período de tempo. Durante esse período, você terá a oportunidade de reativar sua conta, se desejar. Por favor, esteja ciente de que esta ação é irreversível e que após o período de armazenamento dos dados, eles serão permanentemente removidos do nosso sistema. Isso inclui o seguinte:</p>
               <ul>
                 <li>Todos os seus dados pessoais, como nome, endereço de e-mail e qualquer informação de perfil.</li>
                 <li>Qualquer conteúdo que você tenha criado, como projetos, uploads de arquivos ou outras contribuições como anunciante.</li>
-                <li>Seus registros de atividades, como histórico de login e interações recentes.</li>
               </ul>
               <p>
-                Por favor, esteja ciente de que esta ação é irreversível. Uma vez que a conta for excluída, não será possível recuperar os dados ou restaurar o acesso à sua conta. Certifique-se de fazer o backup de qualquer informação importante antes de prosseguir com a exclusão da conta.
-                <br><br>
-                Além disso, os dois perfis, tanto de aluno quanto de anunciante, serão excluídos do sistema do Portal de Oportunidades Acadêmicas.
+                Certifique-se de fazer o backup de qualquer informação importante antes de prosseguir com a desativação da sua conta.
               </p>
             </div>
+
           </div>
         </div>
       </section>
@@ -270,6 +283,15 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <script src="../../js/linksAcesso.js"></script>
   <script src="../../js/aside.js"></script>
   <script src="../../js/modalConfirm.js"></script>
+
+  <!-- script para abrir modal de sair -->
+  <script>
+    function abrirModalSair(event) {
+      event.preventDefault(); // Impede o comportamento padrão do link
+      var modal = document.getElementById("modalMensagem");
+      modal.style.display = "flex";
+    }
+  </script>
 
 </body>
 

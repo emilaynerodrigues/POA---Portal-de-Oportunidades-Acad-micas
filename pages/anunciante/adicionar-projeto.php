@@ -129,8 +129,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
                             <div class="form-item select">
                                 <select name="formato" id="formato-select" required>
                                     <option value="" disabled selected hidden>Selecione um formato de trabalho</option>
-                                    <option value="remoto">Remoto</option>
-                                    <option value="presencial">Presencial</option>
+                                    <option value="Remoto">Remoto</option>
+                                    <option value="Presencial">Presencial</option>
                                 </select>
 
                                 <label for="formato-select">Formato de Trabalho*</label>

@@ -14,5 +14,5 @@ document.getElementById("toggle-senha").addEventListener("click", function () {
 function mostrarMatricula(select) {
   const matriculaContainer = document.getElementById("matriculaContainer");
   matriculaContainer.style.display =
-    select.value === "Aluno" ? "block" : "none";
+    select.value === "aluno" ? "block" : "none";
 }

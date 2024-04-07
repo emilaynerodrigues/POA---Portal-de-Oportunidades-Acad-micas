@@ -3,9 +3,9 @@
 session_start();
 ob_start(); //limpando buffer
 
-// Verificando se o usuário está logado como aluno
+// Verificando se o usuário está logado como anunciante
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
-    // Se não estiver logado como aluno, redirecione para a página de login
+    // Se não estiver logado como anunciante, redirecione para a página de login
     header('Location: ../../index.php');
     $_SESSION['mensagem'] =
         "<!-- Modal de confirmação - Acesso não autorizado! -->
@@ -192,25 +192,22 @@ unset($_SESSION['projeto-atualizado']);
                                 <label for="categoria-select">Categoria*</label>
                             </div>
 
-                            <!-- formato de trabalho -->
                             <div class="form-item select">
                                 <select name="formato" id="formato-select" required>
-                                    <option value="" disabled selected hidden>Selecione um formato de trabalho</option>
+                                    <option value="" disabled hidden>Selecione um formato de trabalho</option>
                                     <?php
                                     $formatos = array("Remoto", "Presencial");
                                     foreach ($formatos as $formato) {
-                                        echo "<option value='$formato'";
-                                        if (isset($dados['formato']) && $dados['formato'] == $formato) {
-                                            echo " selected"; // marca como selecionado se o formato corresponder aos dados recebidos
-                                        } elseif (isset($row_projeto['formato']) && $row_projeto['formato'] == $formato) {
-                                            echo " selected"; // marca como selecionado se o formato corresponder aos dados do banco de dados
+                                        $selected = ''; // Inicializa a variável de seleção
+                                        // Verifica se o formato atual é o mesmo que está armazenado no banco de dados
+                                        if ((isset($dados['formato']) && $dados['formato'] == $formato) || (isset($row_projeto['formato']) && $row_projeto['formato'] == $formato)) {
+                                            $selected = 'selected'; // Marca a opção como selecionada se corresponder ao formato armazenado no banco de dados
                                         }
-                                        echo ">$formato</option>";
+                                        // Imprime a opção com o atributo 'selected' se aplicável
+                                        echo "<option value='$formato' $selected>$formato</option>";
                                     }
                                     ?>
                                 </select>
-
-
                                 <label for="formato-select">Formato de Trabalho*</label>
                             </div>
 

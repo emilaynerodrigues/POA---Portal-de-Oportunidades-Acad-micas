@@ -39,6 +39,17 @@ session_start();
   unset($_SESSION['mensagem']);
   ?>
 
+  <!-- mostrando mensagem de preencha todos os dados e/ou dados incorretos -->
+  <?php
+  //verificando se existe a sessão
+  if (isset($_SESSION['reativar_conta'])) {
+    echo $_SESSION['reativar_conta'];
+  }
+
+  //destruindo sessão
+  unset($_SESSION['reativar_conta']);
+  ?>
+
 
   <main class="container">
     <!-- imagem -->
@@ -83,6 +94,8 @@ session_start();
 
   <!-- vetor de fundo -->
   <img src="../img/elipse.svg" alt="elipse" class="absolute" />
+
+  <script src="../js/aside.js"></script>
   <script src="../js/senha.js"></script>
 </body>
 

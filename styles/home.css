@@ -498,6 +498,66 @@ main section h4 {
   margin-bottom: 20px;
 }
 
-.btn-candidatar{
+.btn-candidatar {
   justify-content: end !important;
+}
+
+/* modal de candidatos */
+.modal-candidatos {
+  height: 80%;
+  overflow: auto;
+  position: relative;
+}
+
+.candidatos-wrapper {
+  width: 500px;
+  margin-top: 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  overflow-y: auto;
+  max-height: calc(
+    100% - 30px
+  ); /* 60px para acomodar o padding de 30px em cada lado */
+}
+
+/* Estilos para o scrollbar vertical */
+.candidatos-wrapper::-webkit-scrollbar {
+  width: 4px; /* Largura do scrollbar */
+}
+
+.candidatos-wrapper::-webkit-scrollbar-track {
+  background: #fdfdfd; /* Cor de fundo do scrollbar */
+}
+
+.candidatos-wrapper::-webkit-scrollbar-thumb {
+  background: #dddddd; /* Cor do thumb do scrollbar */
+}
+
+.candidatos-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #c5c5c5; /* Cor do thumb do scrollbar quando hover */
+}
+
+.candidato {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 4px;
+  padding: 10px 20px;
+  background-color: var(--white-flash);
+}
+
+.candidato .profile-icon {
+  width: 30px;
+  height: 30px;
+}
+
+.candidato span {
+  font-size: 16px;
+}
+
+.candidato .btn {
+  width: 120px;
+  height: 30px;
+  font-weight: 500;
 }

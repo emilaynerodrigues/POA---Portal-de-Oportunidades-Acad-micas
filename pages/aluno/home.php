@@ -45,12 +45,10 @@ $pagina_atual = isset($_GET['page']) ? $_GET['page'] : 1; // Obter a página atu
 
 $inicio = ($pagina_atual - 1) * $limite_result; // Calcular o início da seleção de registros
 
-// Consulta para obter os projetos do anunciante atualmente logado, ordenados pela data de postagem em ordem decrescente (mais recentes primeiro)
-$stmt = $conn->prepare("SELECT projeto.*, anunciante.nome AS nome_anunciante FROM projeto INNER JOIN anunciante ON projeto.anunciante_id = anunciante.id ORDER BY dataPostagem DESC LIMIT $inicio, $limite_result");
-// $stmt->bindValue(":anunciante_id", $user_id);
+// Consulta para obter os projetos apenas de anunciantes com conta ativa, ordenados pela data de postagem em ordem decrescente (mais recentes primeiro)
+$stmt = $conn->prepare("SELECT projeto.*, anunciante.nome AS nome_anunciante FROM projeto INNER JOIN anunciante ON projeto.anunciante_id = anunciante.id WHERE anunciante.ativo = TRUE ORDER BY dataPostagem DESC LIMIT $inicio, $limite_result");
 $stmt->execute();
 $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
 
 ?>
 
@@ -110,7 +108,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- minhas contratações -->
       <li>
-        <a href="#minhas-contratacoes">
+        <a href="#minhas-contratacoes" id="minhas-contratacoes-link">
           <span class="tooltip">Minhas contratações</span>
           <span class="material-symbols-outlined"> work </span>
           <span class="menu-item-label">Minhas contratações</span>
@@ -119,7 +117,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- dados do pessoais -->
       <li>
-        <a href="#dados-pessoais">
+        <a href="#dados-pessoais" id="dados-pessoais-link">
           <span class="tooltip">Dados do pessoais</span>
           <span class="material-symbols-outlined"> frame_person </span>
           <span class="menu-item-label">Dados do pessoais</span>
@@ -128,7 +126,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- portfolio -->
       <li>
-        <a href="#portfolio">
+        <a href="#portfolio" id="portfolio-link">
           <span class="tooltip">Portfólio</span>
           <span class="material-symbols-outlined"> badge </span>
           <span class="menu-item-label">Portfólio</span>
@@ -146,7 +144,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- Opção de logout -->
       <li class="logout">
-        <a href="../../php/script_logout.php">
+        <a href="#sair" id="sair-link" onclick="abrirModalSair(event)">
           <span class="tooltip">Sair</span>
           <span class="material-symbols-outlined">logout</span>
           <span class="menu-item-label">Sair</span>
@@ -158,6 +156,22 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   </aside>
 
   <div class="container">
+
+    <!-- modal confirmação de logout -->
+    <div id="modalMensagem" class='modal modal-session' style='display: none;'>
+      <div class='modal-content'>
+        <a href="home.php"><span class="close-icon material-symbols-outlined closeIcon"> close </span></a>
+
+        <span class='icon material-symbols-outlined'> cancel </span>
+        <h3>Está saindo?</h3>
+        <p>Tem certeza de que deseja fazer sair do sistema?</p>
+        <div class='btn-wrapper'>
+          <a href='home.php' class='btn small-btn cancel-btn closeIcon'>Cancelar</a>
+          <a href="../../php/script_logout.php" class="btn small-btn">Sim, sair</a>
+        </div>
+      </div>
+    </div>
+
     <header class="header">
       <div class="logo">
         <img src="../../img/logo-escura.png" alt="" srcset="" style="height: 40px" />
@@ -361,8 +375,14 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </section>
 
+      <!-- seção minhas-contratacoes -->
+      <section id="minhas-contratacoes"></section>
+
       <!-- seção dados-pessoais -->
-      <section class="content" id="dados-anuciante"> <?php echo $senha ?> </section>
+      <section class="content" id="dados-pessoais"></section>
+
+      <!-- seção portfolio -->
+      <section id="portfolio"></section>
 
       <!-- seção configuracoes -->
       <section class="content" id="configuracoes">
@@ -460,6 +480,12 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         },
       },
     });
+
+    function abrirModalSair(event) {
+      event.preventDefault(); // Impede o comportamento padrão do link
+      var modal = document.getElementById("modalMensagem");
+      modal.style.display = "flex";
+    }
   </script>
 
 </body>

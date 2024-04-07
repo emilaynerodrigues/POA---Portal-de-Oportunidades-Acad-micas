@@ -56,19 +56,6 @@ menuToggle.addEventListener("change", function () {
   aside.classList.toggle("menu-open", this.checked); // Adiciona a classe 'menu-open' se o menu estiver aberto
 });
 
-// faz com que aconteça normalmente o fluxo do link de logout
-// Adicione um identificador à opção de logout
-var logoutLink = document.querySelector(".logout a");
-
-// Adicione um evento de clique ao link de logout
-logoutLink.addEventListener("click", function (event) {
-  event.preventDefault(); // Impede o comportamento padrão do link (navegação)
-
-  // Execute o logout aqui
-  // Por exemplo, redirecione o usuário para a página de logout
-  window.location.href = "../../php/script_logout.php";
-});
-
 // ------------------------------------------------------
 // função para fechar modal de mensagem sem recarregar a pagina
 function fecharModal() {

@@ -26,6 +26,7 @@
     <a href="#" onclick="abrirModal(this)" class="verMais" data-id="<?php echo $projeto['id']; ?>" data-titulo="<?php echo $projeto['titulo']; ?>" data-categoria="<?php echo $projeto['categoria']; ?>" data-formato="<?php echo $projeto['formato']; ?>" data-valor="<?php echo $projeto['valor']; ?>" data-descricao="<?php echo $projeto['descricao']; ?>">Ver mais</a>
 </div>
 
+<!--------------------------------------------------------------------------------------------------------------->
 <!-- modal com todas as informações do projeto + crud -->
 <div id="projectModal" class="modal modal-confirm">
     <div class="modal-content">
@@ -59,15 +60,16 @@
         <p id="descricao-projeto" class="descricao-texto"></p>
 
         <div class="btn-wrapper">
-            <a class="btn normal-btn outline-btn">Candidatos inscritos</a>
+            <a href="#" target="_blank" id="mostrarCandidatos" class=" btn normal-btn outline-btn">Candidatos inscritos</a>
             <a href="#" onclick="abrirModalExcluir(this)" class="btn small-btn delete-btn" data-id="<?php echo $projeto['id']; ?>">Excluir projeto</a>
             <a href="#" id="alterarProjeto" class="btn small-btn">Alterar dados</a>
         </div>
     </div>
 </div>
 
+<!--------------------------------------------------------------------------------------------------------------->
 <!-- modal de confirmação de exclusão de projeto -->
-<div id="modalExcluir" class='modal modal-delete'>
+<div id="modalExcluir" class='modal modal-delete modal-crud'>
     <div class='modal-content'>
         <a href='#' class="closeIconExcluir"><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
         <span class='icon material-symbols-outlined'> help </span>
@@ -79,6 +81,8 @@
         </div>
     </div>
 </div>
+
+<!-- script + modal para recuperar alunos cadastrados nos projetos -->
 
 <script>
     // função para abrir o modal e exibir a descrição do projeto
@@ -110,6 +114,10 @@
         var linkAlterar = document.getElementById("alterarProjeto");
         linkAlterar.href = "../../../pages/anunciante/alterar-projeto.php?id=" + currentProjectId;
 
+        // adicionando o ID do projeto como parametro no link do modal de candidatos
+        var mostrarCandidatos = document.getElementById("mostrarCandidatos");
+        mostrarCandidatos.href = "../../pages//anunciante/mostrarCandidatos.php?id=" + currentProjectId;
+
         // abrindo o modal
         modal.style.display = "flex";
     }
@@ -126,6 +134,7 @@
         closeIcon.addEventListener("click", fecharModal);
     }
 
+    //-----------------------------------------------------------------------------------------------------------
     // função para abrir o modal de confirmação de exclusão
     function abrirModalExcluir(link) {
         var modal = document.getElementById("modalExcluir");
@@ -161,5 +170,37 @@
     closeIconExcluir.forEach(function(closeIconExcluir) {
         // Adicionando um event listener para o evento de clique em cada closeIcon
         closeIconExcluir.addEventListener("click", fecharModalExcluir);
+    });
+
+    //-----------------------------------------------------------------------------------------------------------
+    // função para abrir o modal de candidatos
+    function abrirModalCandidatos(link) {
+        var modal = document.getElementById("modalCandidatos");
+        var modalProjeto = document.getElementById("projectModal");
+
+        // fechando modal dos projetos
+        modalProjeto.style.display = "none";
+
+        console.log("ID do Projeto:", currentProjectId); // Adicionando console.log para verificar o ID do projeto
+
+
+        // Abrindo o modal de candidatos
+        modal.style.display = "flex";
+    }
+
+    // função para fechar o modal de excluir
+    function fecharModalCandidatos() {
+        var modal = document.getElementById("modalCandidatos");
+        var modalProjeto = document.getElementById("projectModal");
+
+        modal.style.display = "none"; //fechando modal de exclusão
+        modalProjeto.style.display = "flex"; //mostrando de volta o modal do projeto
+    }
+
+    // atribuindo evento de clique ao ícone de fechamento
+    var closeIconCandidatos = document.querySelectorAll(".closeIconCandidatos");
+    closeIconCandidatos.forEach(function(closeIconCandidatos) {
+        // Adicionando um event listener para o evento de clique em cada closeIcon
+        closeIconCandidatos.addEventListener("click", fecharModalCandidatos);
     });
 </script>

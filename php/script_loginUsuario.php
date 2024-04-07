@@ -17,19 +17,18 @@ if (empty($_POST["email"]) || empty($_POST["senha"])) {
         "<!-- Modal de confirmação - Preencha todos os dados! -->
     <div class='modal modal-session'>
         <div class='modal-content'>
-            <a href='../../pages/login.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+            <span class='modal-close close-icon material-symbols-outlined closeIcon'> close </span>
             <span class='icon material-symbols-outlined'> cancel </span>
             <h3>Preencha todos os campos!</h3>
             <p>Ops! Parece que você esqueceu de preencher alguns campos.
             Por favor, preencha todos os campos obrigatórios para fazer login.</p>
             <div class='btn-wrapper'>
-                <a href='../../pages/login.php' class='btn small-btn modal-close'>Entendi</a>
+                <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
             </div>
         </div>
     </div>";
     exit();
 }
-
 
 //4 - CONSULTAR (Query) DADOS NO BANCO DE DADOS PARA VALIDAR OS DADOS DO USUÁRIO
 // Consulta para verificar se as credenciais são válidas para um aluno
@@ -40,7 +39,7 @@ $queryAluno->execute();
 $rowAluno = $queryAluno->fetch(PDO::FETCH_ASSOC); //obtem (se houver) os dados do aluno
 
 // Consulta para verificar se as credenciais são válidas para um anunciante
-$queryAnunciante = $conn->prepare("SELECT id FROM anunciante WHERE email = :e and senha = :s");
+$queryAnunciante = $conn->prepare("SELECT id, ativo FROM anunciante WHERE email = :e and senha = :s");
 $queryAnunciante->bindValue(":e", $email);
 $queryAnunciante->bindValue(":s", $senha);
 $queryAnunciante->execute();
@@ -57,16 +56,38 @@ if ($rowAluno) {
     $_SESSION['user_id'] = $rowAnunciante['id'];
     $_SESSION['user_type'] = 'anunciante'; // Para distinguir entre aluno e anunciante
 
-    //Redirecionando para home do anunciante
-    header("Location: ../pages/anunciante/home.php");
-    exit();
+    // Verificar se a conta do anunciante está desativada
+    if (!$rowAnunciante['ativo']) {
+        // Se a conta estiver desativada, mostrar a mensagem para reativar a conta
+
+        header("Location: ../../pages/login.php");
+        $_SESSION['reativar_conta'] =
+            "<!-- Modal de confirmação - Deseja reativar sua conta? -->
+        <div class='modal modal-session'>
+            <div class='modal-content'>
+                <a href='../../pages/login.php'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
+                <span class='icon material-symbols-outlined'> help </span>
+                <h3>Deseja reativar sua conta?</h3>
+                <p>Consultamos nosso sistema e parece que sua conta está desativada. Deseja reativa-lá?</p>
+                <div class='btn-wrapper'>
+                    <a href='../../pages/login.php' class='btn small-btn cancel-btn'>Cancelar</a>
+                    <a href='../../php/anunciante/script_reativarConta.php' class='btn small-btn modal-close'>Sim, reativar</a>
+                </div>
+            </div>
+        </div>";
+    } else {
+        // Se a conta estiver ativa, redirecione para home do anunciante
+        header("Location: ../pages/anunciante/home.php");
+        exit();
+    }
 } else {
+    // Se não encontrou um anunciante com as credenciais fornecidas, redirecionar para página de login
     header("Location: ../pages/login.php"); //Redirecionando para página de login
     $_SESSION['mensagem'] =
         "<!-- Modal de confirmação - Erro ao fazer login! -->
     <div class='modal modal-session'>
         <div class='modal-content'>
-            <a href='../../pages/login.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+            <a href='../../pages/login.php'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
             <span class='icon material-symbols-outlined'> cancel </span>
             <h3>Erro ao fazer login!</h3>
             <p>Ops! Algo deu errado ao tentar fazer login. Verifique se: </p>
