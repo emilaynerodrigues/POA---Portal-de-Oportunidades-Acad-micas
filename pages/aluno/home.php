@@ -158,7 +158,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <div class="container">
 
     <!-- modal confirmação de logout -->
-    <div id="modalMensagem" class='modal modal-session' style='display: none;'>
+    <div id="modalSair" class='modal modal-session' style='display: none;'>
       <div class='modal-content'>
         <a href="home.php"><span class="close-icon material-symbols-outlined closeIcon"> close </span></a>
 
@@ -468,22 +468,22 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       breakpoints: {
         640: {
           slidesPerView: 2,
-          spaceBetween: 20,
+          // spaceBetween: 20,
         },
         768: {
           slidesPerView: 4,
-          spaceBetween: 20,
+          // spaceBetween: 20,
         },
         1024: {
           slidesPerView: 7,
-          spaceBetween: 20,
+          // spaceBetween: 20,
         },
       },
     });
 
     function abrirModalSair(event) {
       event.preventDefault(); // Impede o comportamento padrão do link
-      var modal = document.getElementById("modalMensagem");
+      var modal = document.getElementById("modalSair");
       modal.style.display = "flex";
     }
   </script>

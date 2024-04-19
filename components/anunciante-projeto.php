@@ -38,9 +38,8 @@
             <div class="projeto-info">
                 <!-- Título do projeto -->
                 <h3 id="titulo-projeto" class="titulo-projeto"></h3>
-                <p class="info-adicional">por<?php echo $projeto['id']; ?>
-                    <!-- Nome do autor -->
-                    <span id="autor-projeto" class="anunciante"></span>
+                <p class="info-adicional">
+                    data do projeto aqui
                 </p>
             </div>
         </div>
@@ -60,7 +59,7 @@
         <p id="descricao-projeto" class="descricao-texto"></p>
 
         <div class="btn-wrapper">
-            <a href="#" target="_blank" id="mostrarCandidatos" class=" btn normal-btn outline-btn">Candidatos inscritos</a>
+            <a href="#" id="verCandidatos" class="btn normal-btn outline-btn">Candidatos inscritos</a>
             <a href="#" onclick="abrirModalExcluir(this)" class="btn small-btn delete-btn" data-id="<?php echo $projeto['id']; ?>">Excluir projeto</a>
             <a href="#" id="alterarProjeto" class="btn small-btn">Alterar dados</a>
         </div>
@@ -82,9 +81,67 @@
     </div>
 </div>
 
-<!-- script + modal para recuperar alunos cadastrados nos projetos -->
+<!-- modal de candidatos inscritos no projeto -->
+<?php
+// Verifica se o ID do projeto está presente na URL
+if (isset($_GET['projeto_id'])) {
+    $projeto_id = $_GET['projeto_id'];
+    // Exibe o script JavaScript para abrir o modal de candidatos
+    echo "<script>document.getElementById('modalCandidatos').style.display = 'flex';</script>";
+}
+?>
 
+<div id="modalCandidatos" class="modal modal-confirm" style="display: none;">
+    <div class="modal-content">
+        <span class='modal-close close-icon material-symbols-outlined closeIconCandidatos'> close </span>
+
+        <div class="candidatos-wrapper">
+            <!-- Conteúdo do modal de candidatos aqui -->
+            <?php
+            // Verificando se o projeto_id está definido
+            if (isset($_GET['projeto_id'])) {
+                $projeto_id = $_GET['projeto_id']; // Obtendo o ID do projeto do parâmetro GET
+                // Conectando ao banco de dados
+                $sql_candidaturas = "SELECT aluno.id AS aluno_id, aluno.nome AS nome_aluno
+                                     FROM candidatura
+                                     INNER JOIN aluno ON candidatura.aluno_id = aluno.id
+                                     WHERE candidatura.projeto_id = :projeto_id";
+                $stmt_candidaturas = $conn->prepare($sql_candidaturas);
+                $stmt_candidaturas->bindParam(':projeto_id', $projeto_id);
+                $stmt_candidaturas->execute();
+                $candidaturas = $stmt_candidaturas->fetchAll(PDO::FETCH_ASSOC);
+                // Verificando se há candidaturas
+                if ($stmt_candidaturas->rowCount() > 0) {
+                    // Exibindo os detalhes das candidaturas
+                    foreach ($candidaturas as $candidatura) {
+                        // echo "<div>{$projeto_id}</div>";
+                        echo "
+                        <div class='candidato'>
+                            <div class='profile'>
+                                <div class='profile-icon'></div>
+                                <span id='nome'>{$candidatura['nome_aluno']}</span>
+                            </div>
+                            <a href='mostrar_dados_aluno.php?id={$candidatura['aluno_id']}' id='verPorfolio' class='btn outline-btn'>Ver portfólio</a>
+                        </div>";
+                    }
+                } else {
+                    echo "<p>Nenhum aluno se candidatou para este projeto ainda.</p>";
+                }
+            } else {
+                // Se o projeto_id não for especificado, exibir uma mensagem de erro ou redirecionar para outra página
+                echo 'ID do projeto não especificado';
+            }
+            ?>
+        </div>
+
+    </div>
+</div>
+
+<!--------------------------------------------------------------------------------------------------------------->
+<!-- script + modal para recuperar alunos cadastrados nos projetos -->
 <script>
+    var currentProjectId; // Variável global para armazenar o ID do projeto atual
+
     // função para abrir o modal e exibir a descrição do projeto
     function abrirModal(link) {
         var modal = document.getElementById("projectModal");
@@ -94,7 +151,6 @@
         var valorProjeto = document.getElementById("valor-projeto");
         var descricaoProjeto = document.getElementById("descricao-projeto");
         currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
-
 
         // obtendo os dados do projeto do atributo de dados do link
         var titulo = link.getAttribute("data-titulo");
@@ -108,15 +164,15 @@
         categoriaProjeto.textContent = categoria;
         formatoProjeto.textContent = formato;
         valorProjeto.textContent = "R$ " + valor;
-        descricaoProjeto.textContent = descricao + currentProjectId;
+        descricaoProjeto.textContent = descricao;
 
         // adicionando o ID do projeto como um parâmetro na URL dos link "Alterar dados"
         var linkAlterar = document.getElementById("alterarProjeto");
         linkAlterar.href = "../../../pages/anunciante/alterar-projeto.php?id=" + currentProjectId;
 
-        // adicionando o ID do projeto como parametro no link do modal de candidatos
-        var mostrarCandidatos = document.getElementById("mostrarCandidatos");
-        mostrarCandidatos.href = "../../pages//anunciante/mostrarCandidatos.php?id=" + currentProjectId;
+        // adicionando o ID do projeto como um parâmetro na URL dos link "Candidatos inscritos"
+        var linkCandidatos = document.getElementById("verCandidatos");
+        linkCandidatos.href = "?projeto_id=" + currentProjectId;
 
         // abrindo o modal
         modal.style.display = "flex";
@@ -128,13 +184,7 @@
         modal.style.display = "none";
     }
 
-    // atribuindo evento de clique ao ícone de fechamento
-    var closeIcon = document.getElementById("closeIcon");
-    if (closeIcon) {
-        closeIcon.addEventListener("click", fecharModal);
-    }
-
-    //-----------------------------------------------------------------------------------------------------------
+    // <!--------------------------------------------------------------------------------------------------------------->
     // função para abrir o modal de confirmação de exclusão
     function abrirModalExcluir(link) {
         var modal = document.getElementById("modalExcluir");
@@ -144,10 +194,7 @@
         modalProjeto.style.display = "none";
 
         var confirmDeleteButton = document.getElementById("confirmDeleteButton");
-        // currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
-
-        console.log("ID do Projeto:", currentProjectId); // Adicionando console.log para verificar o ID do projeto
-
+        currentProjectId = link.getAttribute("data-id"); // Obtendo o ID do projeto a partir do link
 
         // Configurando o link de exclusão com o ID correto do projeto
         confirmDeleteButton.href = "../../php/anunciante/script_excluirProjeto.php?id=" + currentProjectId;
@@ -165,42 +212,61 @@
         modalProjeto.style.display = "flex"; //mostrando de volta o modal do projeto
     }
 
-    // atribuindo evento de clique ao ícone de fechamento
-    var closeIconExcluir = document.querySelectorAll(".closeIconExcluir");
-    closeIconExcluir.forEach(function(closeIconExcluir) {
-        // Adicionando um event listener para o evento de clique em cada closeIcon
-        closeIconExcluir.addEventListener("click", fecharModalExcluir);
-    });
-
-    //-----------------------------------------------------------------------------------------------------------
+    // <!--------------------------------------------------------------------------------------------------------------->
     // função para abrir o modal de candidatos
-    function abrirModalCandidatos(link) {
+    function abrirModalCandidatos() {
         var modal = document.getElementById("modalCandidatos");
         var modalProjeto = document.getElementById("projectModal");
 
-        // fechando modal dos projetos
+        // Fechando o modal do projeto
         modalProjeto.style.display = "none";
-
-        console.log("ID do Projeto:", currentProjectId); // Adicionando console.log para verificar o ID do projeto
-
 
         // Abrindo o modal de candidatos
         modal.style.display = "flex";
     }
 
-    // função para fechar o modal de excluir
+    // função para fechar o modal de candidatos e reabrir o modal de informações do projeto
     function fecharModalCandidatos() {
-        var modal = document.getElementById("modalCandidatos");
+        var modalCandidatos = document.getElementById("modalCandidatos");
         var modalProjeto = document.getElementById("projectModal");
 
-        modal.style.display = "none"; //fechando modal de exclusão
-        modalProjeto.style.display = "flex"; //mostrando de volta o modal do projeto
+        modalCandidatos.style.display = "none"; // fechando o modal de candidatos
+        modalProjeto.style.display = "flex"; // mostrando de volta o modal do projeto
+
+        // obtendo o ID do projeto a partir do link "Ver mais" antes de fechar o modal de candidatos
+        var linkVerMais = document.querySelector(".verMais");
+        currentProjectId = linkVerMais.getAttribute("data-id");
+
+        // obtendo as informações do projeto a partir dos atributos de dados do botão "Ver mais"
+        var titulo = document.querySelector(".verMais[data-id='" + currentProjectId + "']").getAttribute("data-titulo");
+        var categoria = document.querySelector(".verMais[data-id='" + currentProjectId + "']").getAttribute("data-categoria");
+        var formato = document.querySelector(".verMais[data-id='" + currentProjectId + "']").getAttribute("data-formato");
+        var valor = document.querySelector(".verMais[data-id='" + currentProjectId + "']").getAttribute("data-valor");
+        var descricao = document.querySelector(".verMais[data-id='" + currentProjectId + "']").getAttribute("data-descricao");
+
+        // atualizando as informações do projeto no modal
+        document.getElementById("titulo-projeto").textContent = titulo;
+        document.getElementById("categoria-projeto").textContent = categoria;
+        document.getElementById("formato-projeto").textContent = formato;
+        document.getElementById("valor-projeto").textContent = "R$ " + valor;
+        document.getElementById("descricao-projeto").textContent = descricao;
+
+        // atualizando a URL da página para remover o parâmetro do ID do projeto --> restaurando ao padrão da url
+        history.replaceState({}, document.title, window.location.pathname);
     }
 
-    // atribuindo evento de clique ao ícone de fechamento
+    // <!--------------------------------------------------------------------------------------------------------------->
+    // atribuindo eventos de clique aos ícones de fechamento
+    document.getElementById("closeIcon").addEventListener("click", fecharModal);
+    document.getElementById("verCandidatos").addEventListener("click", abrirModalCandidatos);
+
+    var closeIconExcluir = document.querySelectorAll(".closeIconExcluir");
+    closeIconExcluir.forEach(function(closeIconExcluir) {
+        closeIconExcluir.addEventListener("click", fecharModalExcluir);
+    });
+
     var closeIconCandidatos = document.querySelectorAll(".closeIconCandidatos");
     closeIconCandidatos.forEach(function(closeIconCandidatos) {
-        // Adicionando um event listener para o evento de clique em cada closeIcon
         closeIconCandidatos.addEventListener("click", fecharModalCandidatos);
     });
 </script>

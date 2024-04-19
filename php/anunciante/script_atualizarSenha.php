@@ -27,6 +27,8 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bindParam(':id', $user_id);
         $stmt->execute();
 
+        unset($_SESSION['mensagem']); // limpando o buffer da sessão mensagem
+
         // verificando se a atualização da senha foi bem-sucedida
         if ($stmt->rowCount() > 0) {
             // Senha atualizada com sucesso

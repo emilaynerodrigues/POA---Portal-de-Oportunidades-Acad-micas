@@ -115,7 +115,7 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
 
       <!-- dados do anuciante -->
       <li>
-        <a href="#dados-anuciante" id="dados-anuciante-link"  >
+        <a href="#dados-anuciante" id="dados-anuciante-link">
           <span class="tooltip">Dados do anuciante</span>
           <span class="material-symbols-outlined"> frame_person </span>
           <span class="menu-item-label">Dados do anuciante</span>
@@ -147,7 +147,7 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
   <div class="container">
 
     <!-- modal confirmação de logout -->
-    <div id="modalMensagem" class='modal modal-session' style='display: none;'>
+    <div id="modalSair" class='modal modal-session' style='display: none;'>
       <div class='modal-content'>
         <a href="home.php"><span class="close-icon material-symbols-outlined closeIcon"> close </span></a>
 
@@ -288,7 +288,7 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
   <script>
     function abrirModalSair(event) {
       event.preventDefault(); // Impede o comportamento padrão do link
-      var modal = document.getElementById("modalMensagem");
+      var modal = document.getElementById("modalSair");
       modal.style.display = "flex";
     }
   </script>
