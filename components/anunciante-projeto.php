@@ -121,7 +121,7 @@ if (isset($_GET['projeto_id'])) {
                                 <div class='profile-icon'></div>
                                 <span id='nome'>{$candidatura['nome_aluno']}</span>
                             </div>
-                            <a href='mostrar_dados_aluno.php?id={$candidatura['aluno_id']}' id='verPorfolio' class='btn outline-btn'>Ver portfólio</a>
+                            <a href='mostrarPortfolio.php?id={$candidatura['aluno_id']}' target='_blank' id='verPorfolio' class='btn outline-btn'>Ver portfólio</a>
                         </div>";
                     }
                 } else {
