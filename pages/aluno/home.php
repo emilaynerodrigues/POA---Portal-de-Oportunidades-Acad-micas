@@ -1,4 +1,5 @@
 <?php
+ob_start();
 session_start();
 
 // Verificando se o usuário está logado como aluno
@@ -29,7 +30,7 @@ include("../../php/conexao.php");
 $conn = conectar();
 
 // Consulta ao banco de dados para obter os detalhes do aluno
-$query = $conn->prepare("SELECT nome, email, senha FROM aluno WHERE id = :id");
+$query = $conn->prepare("SELECT nome, email, senha, matricula, cpf FROM aluno WHERE id = :id");
 $query->bindValue(":id", $user_id);
 $query->execute();
 $aluno = $query->fetch(PDO::FETCH_ASSOC);
@@ -38,6 +39,8 @@ $aluno = $query->fetch(PDO::FETCH_ASSOC);
 $nome_aluno = $aluno['nome'];
 $email_aluno = $aluno['email'];
 $senha = $aluno['senha'];
+$matricula = $aluno['matricula'];
+$cpf_aluno = $aluno['cpf'];
 
 // Lógica de paginação
 $limite_result = 6; // Definir a quantidade de projetos por página
@@ -199,145 +202,52 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
           <h4>Categorias</h4>
           <!-- categorias -->
           <div class="swiper-wrapper">
-            <!-- categoria - arte e design -->
+            <!-- categoria 1 - Desenvolvimento -->
             <div id="categoria1" class="swiper-slide categoria-slide">
-              <!-- icon da categoria -->
-              <div class="categoria-icon">
-                <span class="material-symbols-outlined"> palette </span>
-              </div>
-              <!-- titulo da categoria -->
-              <h3>Arte & Design</h3>
-              <!-- texto sobre subareas da categoria -->
-              <p>
-                Arte digital, desenho, design gráfico, design de produto, design UX/UI,...
-              </p>
-
-            </div>
-
-            <!-- categoria - beleza e estetica -->
-            <div id="categoria2" class="swiper-slide categoria-slide">
-              <!-- icon da categoria -->
-              <div class="categoria-icon">
-                <span class="material-symbols-outlined"> health_and_beauty </span>
-              </div>
-              <!-- titulo da categoria -->
-              <h3>Beleza e Estética</h3>
-              <!-- texto sobre subareas da categoria -->
-              <p>
-                Personal, manicure e pedicure, maquiador(a), cabelereiro(a),...
-              </p>
-
-            </div>
-
-            <!-- categoria - gestão e finanças -->
-            <div id="categoria3" class="swiper-slide categoria-slide">
-              <!-- icon da categoria -->
-              <div class="categoria-icon">
-                <span class="material-symbols-outlined"> attach_money </span>
-              </div>
-              <!-- titulo da categoria -->
-              <h3>Gestão e Finanças</h3>
-              <!-- texto sobre subareas da categoria -->
-              <p>
-                Analista financeiro, contador, gestor f...
-              </p>
-
-            </div>
-
-            <!-- categoria - Manutenção de Computadores -->
-            <div id="categoria4" class="swiper-slide categoria-slide">
-              <!-- icon da categoria -->
-              <div class="categoria-icon">
-                <span class="material-symbols-outlined"> computer </span>
-              </div>
-              <!-- titulo da categoria -->
-              <h3>Manutenção de Computadores</h3>
-              <!-- texto sobre subareas da categoria -->
-              <p>
-                Técnico de TI, Admin de redes e sistemas,...
-              </p>
-            </div>
-
-            <!-- categoria - Marketing e Vendas -->
-            <div id="categoria5" class="swiper-slide categoria-slide">
-              <!-- icon da categoria -->
-              <div class="categoria-icon">
-                <span class="material-symbols-outlined"> campaign </span>
-              </div>
-              <!-- titulo da categoria -->
-              <h3>Marketing e Vendas</h3>
-              <!-- texto sobre subareas da categoria -->
-              <p>
-                Gerente de produto, trader, promotor,...
-              </p>
-
-            </div>
-
-            <!-- categoria - Projetos sociais -->
-            <div id="categoria6" class="swiper-slide categoria-slide">
-              <!-- icon da categoria -->
-              <div class="categoria-icon">
-                <span class="material-symbols-outlined"> handshake </span>
-              </div>
-              <!-- titulo da categoria -->
-              <h3>Projetos sociais</h3>
-              <!-- texto sobre subareas da categoria -->
-              <p>
-                Coordenador, assistente social, educador social, voluntário, psicólogo,...
-              </p>
-
-            </div>
-
-            <!-- categoria - Suporte Administrativo -->
-            <div id="categoria7" class="swiper-slide categoria-slide">
-              <!-- icon da categoria -->
-              <div class="categoria-icon">
-                <span class="material-symbols-outlined"> business_center </span>
-              </div>
-              <!-- titulo da categoria -->
-              <h3>Suporte Administrativo</h3>
-              <!-- texto sobre subareas da categoria -->
-              <p>
-                Assistente de RH, logística e jurídico,...
-              </p>
-
-            </div>
-
-
-            <!-- categoria - TI e Programação -->
-            <div id="categoria8" class="swiper-slide categoria-slide">
               <!-- icon da categoria -->
               <div class="categoria-icon">
                 <span class="material-symbols-outlined"> code </span>
               </div>
               <!-- titulo da categoria -->
-              <h3>TI e Programação</h3>
+              <h3>Desenvolvimento</h3>
               <!-- texto sobre subareas da categoria -->
               <p>
-                Dev web, dev mobile, analista de sistemas,...
+                Dev web e mobile, analista de sistemas, desenvolvimento de jogos, desenvolvimento de software, engenharia de software, ...
               </p>
-
             </div>
 
-            <!-- categoria - Tradução e Conteúdos -->
-            <div id="categoria9" class="swiper-slide categoria-slide">
+            <!-- categoria 2 - Design -->
+            <div id="categoria2" class="swiper-slide categoria-slide">
               <!-- icon da categoria -->
               <div class="categoria-icon">
-                <span class="material-symbols-outlined"> g_translate </span>
+                <span class="material-symbols-outlined"> palette </span>
               </div>
               <!-- titulo da categoria -->
-              <h3>Tradução e Conteúdos</h3>
+              <h3>Design</h3>
               <!-- texto sobre subareas da categoria -->
               <p>
-                Tradutor, redator, copywriter, editor,...
+                Arte digital, design gráfico, design de produto, design UX/UI, ilustração digital, animação gráfica, design de personagens, motion design, ...
               </p>
-
             </div>
 
+            <!-- categoria 3 - Suporte em TI -->
+            <div id="categoria3" class="swiper-slide categoria-slide">
+              <!-- icon da categoria -->
+              <div class="categoria-icon">
+                <span class="material-symbols-outlined"> computer </span>
+              </div>
+              <!-- titulo da categoria -->
+              <h3>Suporte em TI</h3>
+              <!-- texto sobre subareas da categoria -->
+              <p>
+                Técnico de TI, Admin de redes e sistemas, suporte técnico, help desk, gerenciamento de servidores, ...
+              </p>
+            </div>
           </div>
 
+          <!-- 
           <div id="button-next" class="swiper-btn swiper-button-next"></div>
-          <div id="button-prev" class="swiper-btn swiper-button-prev"></div>
+          <div id="button-prev" class="swiper-btn swiper-button-prev"></div> -->
 
         </div>
 
@@ -379,7 +289,10 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       <section id="minhas-contratacoes"></section>
 
       <!-- seção dados-pessoais -->
-      <section class="content" id="dados-pessoais"></section>
+      <section class="content" id="dados-pessoais">
+        <!-- componente de dados pessoais -->
+        <?php include("../../components/aluno-dadosPessoais.php"); ?>
+      </section>
 
       <!-- seção portfolio -->
       <section id="portfolio"></section>
@@ -392,18 +305,19 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         <div class="content-section">
           <!-- menu de opções -->
           <div class="section-options">
-            <a href="#" class="section-link active" data-target="dadosAcesso-section">Dados de Acesso</a>
+            <a href="#" class="section-link" data-target="dadosAcesso-section">Dados de Acesso</a>
             <a href="#" class="section-link" data-target="excluirConta-section">Excluir Conta</a>
+            <a href="#" class="section-link" data-target="suporte-section">Suporte</a>
           </div>
 
-          <!-- div - dados de acesso -->
+          <!-- aba - dados de acesso -->
           <div id="dadosAcesso-section" class="dados-acesso-section content-sections" style="display: flex;">
             <!-- formulario de dados de acesso -->
             <!-- fazendo chamada do elemento -->
             <?php include("../../components/aluno-dadosAcesso.php"); ?>
           </div>
 
-          <!-- div - excluir conta -->
+          <!-- aba - excluir conta -->
           <div id="excluirConta-section" class="content-sections">
             <!-- primeira coluna -->
             <div class="col">
@@ -436,6 +350,26 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 Além disso, os dois perfis, tanto de aluno quanto de anunciante, serão excluídos do sistema do Portal de Oportunidades Acadêmicas.
               </p>
             </div>
+          </div>
+
+          <!-- aba - suporte -->
+          <div id="suporte-section" class="content-sections">
+            <!-- primeira coluna -->
+            <div class="col col-explicacao">
+              <!-- Título e informações sobre o suporte -->
+              <h2>Entre em Contato</h2>
+              <p>Em caso de problemas ou dúvidas, entre em contato com nosso suporte técnico através dos contatos abaixo:</p>
+
+              <ul>
+                <li>E-mail: suporte@poa.com</li>
+                <li>WhatsApp: <a href="https://wa.me/55000000000">+55 92 00000-0000</a></li>
+                <li>Facebook: <a href="https://www.facebook.com/paginaexemplo">Página Exemplo</a></li>
+                <!-- Adicione outras redes sociais ou métodos de contato conforme necessário -->
+              </ul>
+
+              <p>Nossa equipe de suporte terá o prazer de ajudá-lo com qualquer problema que você esteja enfrentando.</p>
+            </div>
+
           </div>
         </div>
       </section>

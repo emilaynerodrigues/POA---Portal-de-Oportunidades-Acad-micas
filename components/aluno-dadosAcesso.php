@@ -1,8 +1,8 @@
 <form action="../../php/aluno/script_atualizarSenha.php" method="post">
     <!-- input de email - apenas de leitura -->
     <div class="form-item">
-        <input type="email" name="email" id="email-input" value="<?php echo $email_aluno ?>" readonly required>
-        <label for="email-input" class="email-input-label">E-mail*</label>
+        <input type="email" name="email" id="email-input" value="<?php echo $email_aluno ?>" readonly autocomplete="email">
+        <label for="email-input" class="input-fill">E-mail*</label>
     </div>
 
     <div class="row">

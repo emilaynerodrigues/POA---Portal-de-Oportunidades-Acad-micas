@@ -176,7 +176,7 @@ unset($_SESSION['projeto-atualizado']);
                                     <option value="" disabled selected hidden>Selecione uma categoria</option>
 
                                     <?php
-                                    $categorias = array("Arte e Design", "Beleza e Estética", "Gestão e Finanças", "Manutenção de Computadores", "Marketing e Vendas", "Projetos Sociais", "Suporte e Administrativo", "TI e Programação", "Tradução e Contéudos");
+                                    $categorias = array("Desenvolvimento", "Design", "Suporte em TI");
                                     foreach ($categorias as $categoria) {
                                         echo "<option value='$categoria'";
                                         if (isset($dados['categoria']) && $dados['categoria'] == $categoria) {
@@ -192,6 +192,7 @@ unset($_SESSION['projeto-atualizado']);
                                 <label for="categoria-select">Categoria*</label>
                             </div>
 
+                            <!-- formato -->
                             <div class="form-item select">
                                 <select name="formato" id="formato-select" required>
                                     <option value="" disabled hidden>Selecione um formato de trabalho</option>

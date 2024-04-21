@@ -111,15 +111,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
                             <div class="form-item select">
                                 <select name="categoria" id="categoria-select" required>
                                     <option value="" disabled selected hidden>Selecione uma categoria</option>
-                                    <option value="Arte e Design">Arte e Design</option>
-                                    <option value="Beleza e Estética">Beleza e Estética</option>
-                                    <option value="Gestão e Finanças">Gestão e Finanças</option>
-                                    <option value="Manutenção de Computadores">Manutenção de Computadores</option>
-                                    <option value="Marketing e Vendas">Marketing e Vendas</option>
-                                    <option value="Projetos Sociais">Projetos Sociais</option>
-                                    <option value="Suporte e Administrativo">Suporte e Administrativo</option>
-                                    <option value="TI e Programação">TI e Programação</option>
-                                    <option value="Tradução e Contéudos">Tradução e Contéudos</option>
+                                    <option value="Desenvolvimento">Desenvolvimento</option>
+                                    <option value="Design">Design</option>
+                                    <option value="Suporte em TI">Suporte em TI</option>
                                 </select>
 
                                 <label for="categoria-select">Categoria*</label>

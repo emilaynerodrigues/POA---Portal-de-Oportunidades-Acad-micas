@@ -236,14 +236,14 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
             <a href="#" class="section-link" data-target="excluirConta-section">Desativar Conta</a>
           </div>
 
-          <!-- div - dados de acesso -->
+          <!-- aba - dados de acesso -->
           <div id="dadosAcesso-section" class="dados-acesso-section content-sections" style="display: flex;">
             <!-- formulario de dados de acesso -->
             <!-- fazendo chamada do elemento -->
             <?php include("../../components/anunciante-dadosAcesso.php"); ?>
           </div>
 
-          <!-- div - excluir conta -->
+          <!-- aba - excluir conta -->
           <div id="excluirConta-section" class="content-sections">
             <!-- primeira coluna -->
             <div class="col">
@@ -274,6 +274,25 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
               </p>
             </div>
 
+          </div>
+
+          <!-- aba - suporte -->
+          <div id="suporte-section" class="content-sections">
+            <!-- primeira coluna -->
+            <div class="col col-explicacao">
+              <!-- Título e informações sobre o suporte -->
+              <h2>Entre em Contato</h2>
+              <p>Em caso de problemas ou dúvidas, entre em contato com nosso suporte técnico através dos contatos abaixo:</p>
+
+              <ul>
+                <li>E-mail: suporte@poa.com</li>
+                <li>WhatsApp: <a href="https://wa.me/55000000000">+55 92 00000-0000</a></li>
+                <li>Facebook: <a href="https://www.facebook.com/paginaexemplo">Página Exemplo</a></li>
+                <!-- Adicione outras redes sociais ou métodos de contato conforme necessário -->
+              </ul>
+
+              <p>Nossa equipe de suporte terá o prazer de ajudá-lo com qualquer problema que você esteja enfrentando.</p>
+            </div>
           </div>
         </div>
       </section>

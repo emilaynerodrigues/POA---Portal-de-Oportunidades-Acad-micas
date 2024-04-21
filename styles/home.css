@@ -130,21 +130,6 @@ aside .material-symbols-outlined {
 
 /* ------- */
 
-#contratacoes {
-  padding: 50px;
-  background-color: rgb(205, 107, 50);
-}
-
-#dados-pessoais {
-  padding: 50px;
-  background-color: rgb(50, 66, 205);
-}
-
-#portfolio {
-  padding: 50px;
-  background-color: rgb(205, 50, 166);
-}
-
 .container {
   display: flex;
   flex-direction: column;
@@ -307,25 +292,26 @@ main section h4 {
   width: 100%;
 }
 
-#configuracoes #email-input {
+#email-input,
+#emailCandidato-input {
   background-color: var(--white-flash);
 }
 
-#configuracoes .email-input-label {
+.input-fill {
   position: relative;
-  top: -52px;
+  top: 52px;
   left: 15px;
   display: inline-block; /* Para que a label se ajuste ao tamanho do texto */
   background-color: transparent;
   z-index: 1;
 }
 
-#configuracoes .email-input-label::before {
+.input-fill::before {
   content: ""; /* Conteúdo vazio do pseudo-elemento */
   position: absolute; /* Posição absoluta para cobrir a label */
   top: 12px;
   left: 0;
-  height: 10px; /* Altura igual à da label */
+  height: 15px; /* Altura igual à da label */
   width: 100%; /* Metade da largura da label */
   background-color: var(--white-flash); /* Cor do fundo da primeira metade */
   z-index: -1; /* Para colocar o pseudo-elemento abaixo do conteúdo da label */
@@ -374,6 +360,10 @@ main section h4 {
   font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 40;
 }
 
+#suporte-section {
+  display: none;
+}
+
 #excluirConta-section {
   display: none;
   justify-content: space-between;
@@ -396,7 +386,7 @@ main section h4 {
 }
 
 .col-explicacao {
-  max-width: 750px;
+  max-width: 800px;
   border-radius: 5px;
   padding: 30px;
   background-color: var(--white-flash);
@@ -427,13 +417,12 @@ main section h4 {
 /* ------------------------ aluno ------------------------*/
 /* categorias */
 .swiper-wrapper {
-  /* tamanho pra < 1440*/
-  max-width: 1262.36px;
+  display: flex;
+  /* background-color: #5859ad; */
 }
 
 .categoria-slide {
-  max-height: 155px;
-  max-width: 150px;
+  flex-grow: 1;
   border-radius: 5px;
   padding: 20px;
   display: flex !important;
@@ -444,8 +433,8 @@ main section h4 {
 }
 
 .categoria-slide .categoria-icon {
-  height: 30px;
-  width: 30px;
+  height: 40px;
+  width: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
@@ -455,7 +444,7 @@ main section h4 {
 
 .categoria-slide .categoria-icon span {
   color: var(--white);
-  font-size: 20px;
+  font-size: 25px;
   font-variation-settings: "FILL" 0, "wght" 200, "GRAD" 0, "opsz" 40;
 }
 
@@ -464,34 +453,7 @@ main section h4 {
 }
 
 .categoria-slide p {
-  font-size: 10px;
-}
-
-.swiper-btn {
-  height: 25px !important;
-  width: 25px !important;
-  border-radius: 50%;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-  background-color: var(--white);
-  position: absolute !important;
-  top: 70% !important;
-  z-index: 10;
-}
-
-.swiper-btn:after {
-  font-size: 10px !important;
-  font-weight: 700 !important;
-  color: var(--federal-blue);
-}
-
-#button-prev {
-  left: 0px;
-  opacity: 1;
-}
-
-#button-next {
-  right: 0px;
-  opacity: 1;
+  font-size: 12px;
 }
 
 .categorias-wrapper h4 {
@@ -562,4 +524,87 @@ main section h4 {
   width: 120px;
   height: 30px;
   font-weight: 500;
+}
+
+/* dados pessoais */
+.dados-wrapper {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+}
+
+.profile-aside,
+.form-1,
+.form-2 {
+  border: solid 1px var(--federal-blue);
+  border-radius: 5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.profile-aside {
+  flex-grow: 0; /* Perfil não cresce */
+  flex-shrink: 0; /* Perfil não encolhe */
+  width: 20%; /* Largura fixa para o perfil */
+  display: flex;
+  align-items: center;
+}
+
+.profile-aside span {
+  color: var(--federal-blue);
+}
+
+.profile-aside .profile-icon {
+  height: 150px;
+  width: 150px;
+}
+
+.profile-aside .profile-icon span {
+  font-size: 80px;
+  color: var(--white);
+}
+
+.profile-aside .matricula {
+  font-size: 12px;
+  color: var(--rich-black);
+}
+
+.profile-aside .nome-candidato {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--federal-blue);
+  text-transform: capitalize;
+}
+
+.dados-wrapper .col {
+  flex-grow: 1;
+}
+
+.form-1 h4,
+.form-2 h4 {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--federal-blue);
+}
+
+.cpf-readonly {
+  background-color: var(--white-flash);
+}
+
+.dados-wrapper form{
+  width: 100%;
+  display: flex;
+}
+
+
+.dados-wrapper form .row{
+  flex: 1;
+  width: 100%;
+}
+
+.dados-wrapper form .row .form-item{
+  flex: 1;
+  width: 100%;
 }
