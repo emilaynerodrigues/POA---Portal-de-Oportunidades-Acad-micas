@@ -593,18 +593,37 @@ main section h4 {
   background-color: var(--white-flash);
 }
 
-.dados-wrapper form{
+.dados-wrapper form {
   width: 100%;
   display: flex;
 }
 
-
-.dados-wrapper form .row{
+.dados-wrapper form .row {
   flex: 1;
   width: 100%;
 }
 
-.dados-wrapper form .row .form-item{
+.dados-wrapper form .row .form-item {
   flex: 1;
   width: 100%;
+}
+
+#portfolio .content-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+#portfolio form textarea {
+  padding: 20px;
+}
+
+#portfolio h4{
+  font-size: 18px;
+  color: var(--federal-blue);
+}
+
+#portfolio p{
+  font-size: 14px;
+  color: var(--rich-black);
 }

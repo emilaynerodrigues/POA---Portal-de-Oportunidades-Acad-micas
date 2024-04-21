@@ -295,7 +295,11 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </section>
 
       <!-- seção portfolio -->
-      <section id="portfolio"></section>
+      <section id="portfolio">
+        <h4>Portfólio</h4>
+        <!-- div principal -->
+        <?php include("../../components/aluno-portfolio.php"); ?>
+      </section>
 
       <!-- seção configuracoes -->
       <section class="content" id="configuracoes">
