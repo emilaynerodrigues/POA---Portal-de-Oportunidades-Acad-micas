@@ -27,7 +27,7 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <p>Neste campo, você pode compartilhar informações sobre seus interesses, hobbies, experiências profissionais e objetivos pessoais. Use este espaço para se expressar de forma autêntica e genuína, permitindo que outras pessoas conheçam um pouco mais sobre você.</p>
 
-        <form action="../../php/aluno/script_atualizarPortfolio.php" method="post">
+        <form action="../../php/aluno/script_atualizarDescricao.php" method="post">
 
             <textarea name="descricao" id="descricao-aluno" cols="30" rows="10"><?php echo $dados_aluno['descricao']; ?></textarea>
 
@@ -43,7 +43,7 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <p>Neste campo, você pode compartilhar informações sobre sua trajetória escolar, incluindo suas experiências acadêmicas, conquistas, interesses educacionais e objetivos relacionados à sua formação. Use este espaço para fornecer uma visão mais completa de sua jornada educacional, permitindo que outras pessoas conheçam melhor seu histórico escolar e suas aspirações acadêmicas.</p>
 
-        <form action="../../php/aluno/script_atualizarPortfolio.php" method="post">
+        <form action="../../php/aluno/script_atualizarEscolaridade.php" method="post">
 
             <textarea name="escolaridade" id="escolaridade-aluno" cols="30" rows="10"><?php echo $dados_aluno['escolaridade']; ?></textarea>
 
@@ -59,7 +59,7 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
 
         <p>Neste campo, você pode compartilhar informações sobre os cursos de qualificação que realizou, incluindo certificações, workshops, treinamentos e outras experiências de aprendizado que contribuíram para o desenvolvimento das suas habilidades e conhecimentos. Use este espaço para destacar suas conquistas e demonstrar seu comprometimento com o aprimoramento profissional.</p>
 
-        <form action="../../php/aluno/script_atualizarPortfolio.php" method="post">
+        <form action="../../php/aluno/script_atualizarCurso.php" method="post">
 
             <textarea name="curso_qualificacao" id="cursos-aluno" cols="30" rows="10"><?php echo $dados_aluno['curso_qualificacao']; ?></textarea>
 
@@ -107,7 +107,17 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
     // Função para confirmar a atualização
     function confirmarAtualizacao() {
         // Submeter o formulário correspondente à ação
-        var form = document.querySelector("form[action='../../php/aluno/script_atualizarPortfolio.php']");
+        var form;
+        if (campoAtualizacao === 'atualizar_descricao') {
+            form = document.querySelector("form[action='../../php/aluno/script_atualizarDescricao.php']");
+        } else if (campoAtualizacao === 'atualizar_escolaridade') {
+            form = document.querySelector("form[action='../../php/aluno/script_atualizarEscolaridade.php']");
+        } else if (campoAtualizacao === 'atualizar_curso') {
+            form = document.querySelector("form[action='../../php/aluno/script_atualizarCurso.php']");
+        } else {
+            return; // Ação inválida, não faz nada
+        }
+
         // Adicionar um campo oculto para indicar qual ação está sendo atualizada
         var hiddenField = document.createElement("input");
         hiddenField.setAttribute("type", "hidden");

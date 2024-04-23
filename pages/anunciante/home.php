@@ -222,7 +222,11 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
       </section>
 
       <!-- seção dados-pessoais -->
-      <section class="content" id="dados-anuciante"> <?php echo $senha ?> </section>
+      <section class="content" id="dados-anuciante">
+
+        <?php include("../../components/anunciante-dadosPessoais.php"); ?>
+
+      </section>
 
       <!-- seção configuracoes -->
       <section class="content" id="configuracoes">

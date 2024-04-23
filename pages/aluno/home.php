@@ -110,13 +110,13 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </li>
 
       <!-- minhas contratações -->
-      <li>
-        <a href="#minhas-contratacoes" id="minhas-contratacoes-link">
-          <span class="tooltip">Minhas contratações</span>
-          <span class="material-symbols-outlined"> work </span>
-          <span class="menu-item-label">Minhas contratações</span>
-        </a>
-      </li>
+        <!-- <li>
+          <a href="#minhas-contratacoes" id="minhas-contratacoes-link">
+            <span class="tooltip">Minhas contratações</span>
+            <span class="material-symbols-outlined"> work </span>
+            <span class="menu-item-label">Minhas contratações</span>
+          </a>
+        </li> -->
 
       <!-- dados do pessoais -->
       <li>
@@ -285,8 +285,8 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </div>
       </section>
 
-      <!-- seção minhas-contratacoes -->
-      <section id="minhas-contratacoes"></section>
+      <!-- seção minhas-contratacoes
+      <section id="minhas-contratacoes"></section> -->
 
       <!-- seção dados-pessoais -->
       <section class="content" id="dados-pessoais">

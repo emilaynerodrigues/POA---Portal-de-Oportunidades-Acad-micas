@@ -292,8 +292,8 @@ main section h4 {
   width: 100%;
 }
 
-#email-input,
-#emailCandidato-input {
+.email-input,
+.emailCandidato-input {
   background-color: var(--white-flash);
 }
 

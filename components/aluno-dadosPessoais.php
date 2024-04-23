@@ -101,9 +101,10 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
             <h4>Formas de Contato</h4>
             <!-- email -->
             <div class="form-item">
-                <input type="email" name="email" id="emailCandidato-input" autocomplete="email" value="<?php echo $dados_aluno['email']; ?>" readonly />
+                <input type="email" name="email" id="emailCandidato-input" class="emailCandidato-input" autocomplete="email" value="<?php echo $dados_aluno['email']; ?>" readonly />
                 <label for="emailCandidato-input" class="input-fill">E-mail*</label>
             </div>
+
 
             <div class="row">
                 <!-- telefone -->
