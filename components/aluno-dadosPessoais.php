@@ -147,21 +147,38 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
     </div>
 </div>
 
-<!-- Modal de Alerta de Campo Vazio -->
-<div id="confirmVazio" class="modal modal-confirm" style="display: none;">
+
+<!-- modal de Alerta de Campo Vazio -->
+<div id="confirmVazio" class="modal modal-delete" style="display: none;">
     <div class="modal-content">
-        <span class="modal-close close-icon material-symbols-outlined"> close </span>
+        <span class='modal-close close-icon material-symbols-outlined closeModal'> close </span>
 
         <span class="icon material-symbols-outlined"> cancel </span>
-        <h3>Campos Vazios!</h3>
+        <h3>Campos vazios!</h3>
         <p>Por favor, preencha todos os campos obrigatórios!</p>
-        <div class="btn-wrapper">
-            <button class="btn small-btn outline-btn modal-close">Entendi</button>
+        <div class='btn-wrapper'>
+            <a href='#' class='btn small-btn modal-close closeModal'>Entendi</a>
         </div>
     </div>
 </div>
 
 <script>
+    // Função para fechar os modais
+    function fecharModais() {
+        var modais = document.querySelectorAll('.modal');
+        modais.forEach(function(modal) {
+            modal.style.display = "none";
+        });
+    }
+
+    // Adicionando evento de clique nos elementos com a classe closeModal
+    var closeButtons = document.querySelectorAll('.closeModal');
+    closeButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            fecharModais();
+        });
+    });
+
     // Função para abrir o modal de confirmação de atualização de dados
     function abrirModalCandidato(event) {
         event.preventDefault(); // Impede o comportamento padrão do link
@@ -187,12 +204,6 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
         };
         // Abrir o modal de confirmação de atualização de dados
         modal.style.display = "flex";
-    }
-
-    function fecharModal() {
-        var modal = document.getElementById("modalDadosCandidato");
-
-        modal.style.display = "none"; //fechando modal
     }
 
     // atribuindo evento de clique ao ícone de fechamento
@@ -230,16 +241,4 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
         modal.style.display = "flex";
     }
     // ---------------------------------------------------------------------------
-    function fecharModalVazio() {
-        var modal = document.getElementById("confirmVazio");
-
-        modal.style.display = "none"; //fechando modal
-    }
-
-    // atribuindo evento de clique ao ícone de fechamento
-    var closeModalVazio = document.querySelectorAll(".closeModalVazio");
-    closeModalVazio.forEach(function(closeModalVazio) {
-        // Adicionando um event listener para o evento de clique em cada closeModal
-        closeModalVazio.addEventListener("click", fecharModalVazio);
-    });
 </script>

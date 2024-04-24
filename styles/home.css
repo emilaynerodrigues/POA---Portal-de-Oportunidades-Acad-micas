@@ -578,7 +578,8 @@ main section h4 {
   text-transform: capitalize;
 }
 
-.dados-wrapper .col {
+.dados-wrapper .col,
+.content-portfolio .col {
   flex-grow: 1;
 }
 
@@ -618,12 +619,86 @@ main section h4 {
   padding: 20px;
 }
 
-#portfolio h4{
+#portfolio h4 {
   font-size: 18px;
   color: var(--federal-blue);
 }
 
-#portfolio p{
+#portfolio p {
   font-size: 14px;
   color: var(--rich-black);
+}
+
+.content-portfolio {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.text-item {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+  background-color: var(--white-flash);
+  color: var(--rich-black);
+  text-transform: capitalize;
+}
+
+.line{
+  height: 1.1px;
+  width: 100%;
+  background-color: var(--federal-blue);
+}
+
+.contato{
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.contato h3{
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--federal-blue);
+  text-align: center;
+}
+
+.contato p{
+  font-size: 14px;
+}
+
+.contato-item {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.contato-item a{
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.contato-item .contato-icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 35px;
+  width: 35px;
+  border: solid 1.5px var(--federal-blue);
+  border-radius: 50%;
+  color: var(--federal-blue);
+  transition: .1s all;
+}
+
+.contato-item a:hover .contato-icon {
+  border: none;
+  background-color: var(--medium-blue);
+  color: var(--white);
 }
