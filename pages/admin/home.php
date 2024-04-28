@@ -51,6 +51,18 @@ $conn = conectar();
 </head>
 
 <body>
+
+    <!-- mostrando mensagem de projeto excluido-->
+    <?php
+    //verificando se existe a sessão
+    if (isset($_SESSION['mensagem'])) {
+        echo $_SESSION['mensagem'];
+    }
+
+    //destruindo sessão
+    unset($_SESSION['mensagem']);
+    ?>
+
     <!-- menu lateral -->
     <aside class="sidebar">
         <!-- Ícone de hambúrguer -->
@@ -151,8 +163,8 @@ $conn = conectar();
                         echo "<td class='email'>{$anunciante['email']}</td>";
                         echo "<td class='action-item'><a href='?anunciante_id=" . $anunciante['id'] . "'><span class='material-symbols-outlined'>visibility</span></a></td>"; // Adicione este link para visualizar os projetos do anunciante
                         echo "<td class='action-item'><a href='anunciante-alterar.php?id=" . $anunciante['id'] . "'><span class='material-symbols-outlined'>edit_square</span></a></td>";
-                        echo "<td class='action-item'><a href='#'><span class='material-symbols-outlined'>delete</span></a></td>";
-                        echo "<td class='action-item'><a href='#' ><span class='delete-action material-symbols-outlined'>delete</span></a></td>";
+                        echo "<td class='action-item'><a href='#'><span class='material-symbols-outlined'>disabled_by_default</span></a></td>";
+                        echo "<td class='action-item'><a href='#' class='deleteAnunciante' data-anunciante-id=" . $anunciante['id'] . "'><span class='delete-action material-symbols-outlined'>delete</span></a></td>";
                         echo "</tr>";
                     }
 
@@ -243,6 +255,19 @@ $conn = conectar();
             </div>
         </div>
 
+        <!-- modal de confirmação de deletar anunciante de dados -->
+        <div class='modal modal-delete' id="modalAnunciante">
+            <div class='modal-content'>
+                <span class='modal-close close-icon material-symbols-outlined closeModal'> close </span>
+                <span class='icon material-symbols-outlined'> help </span>
+                <h3>Tem certeza?</h3>
+                <p>Todos os dados vinculados ao anunciante serão apagados permanentemente da base de dados. Você tem certeza que deseja continuar?</p>
+                <div class='btn-wrapper'>
+                    <a href='#' class='btn small-btn cancel-btn closeModal'>Cancelar</a>
+                    <a href='' id="confirmButton" class='btn small-btn'>Sim</a>
+                </div>
+            </div>
+        </div>
 
     </div>
 
@@ -284,6 +309,23 @@ $conn = conectar();
         var closeIconProjetos = document.querySelectorAll(".closeIconProjetos");
         closeIconProjetos.forEach(function(closeIconProjetos) {
             closeIconProjetos.addEventListener("click", fecharModalProjetos);
+        });
+
+        // Adicione um evento de clique aos ícones de exclusão na tabela de anunciantes
+        var deleteAnuncianteIcons = document.querySelectorAll('.deleteAnunciante');
+        deleteAnuncianteIcons.forEach(function(icon) {
+            icon.addEventListener('click', function(event) {
+                event.preventDefault();
+                var anuncianteId = this.getAttribute('data-anunciante-id');
+                console.log(anuncianteId)
+                // Abrir o modal de confirmação
+                var modalAnunciante = document.getElementById('modalAnunciante');
+                modalAnunciante.style.display = 'flex';
+
+                // Adicionar o ID do anunciante ao link de confirmação no modal
+                var confirmButton = document.getElementById('confirmButton');
+                confirmButton.setAttribute('href', '../../php/admin/script_deletarAnunciante.php?anunciante_id=' + anuncianteId);
+            });
         });
     </script>
 
