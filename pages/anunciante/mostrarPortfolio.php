@@ -137,26 +137,26 @@ if ($result_projeto->rowCount() > 0) {
 
                         <div class="contato-item">
                             <!-- whatsapp -->
-                            <a href="https://api.whatsapp.com/send?phone=<?php echo $row_candidato['whatsapp']; ?>&text=Estou%20entrando%20em%20contato%20para%20falar%20sobre%20o%20projeto%20<?php echo urlencode($nome_projeto); ?>" id="whatsapp" target="_blank">
+                            <a href="https://api.whatsapp.com/send?phone=<?php echo $row_candidato['whatsapp']; ?>&text=O%20Portal%20de%20Oportunidades%20Acadêmicas%20informa%20que%20você%20foi%20selecionado%20para%20seguir%20no%20projeto%20<?php echo urlencode($nome_projeto); ?>.%20Estamos%20entrando%20em%20contato%20para%20dar%20os%20próximos%20passos%20nessa%20jornada." id="whatsapp" target="_blank">
                                 <div class="contato-icon"><i class="fa-brands fa-whatsapp" style="font-size: 18px; font-weight: 500;"></i></div>
 
                                 <?php echo $row_candidato['whatsapp']; ?>
                             </a>
 
                             <!-- email -->
-                            <a href="mailto:<?php echo $row_candidato['email']; ?>?subject=Estou%20entrando%20em%20contato%20para%20falar%20sobre%20o%20projeto%20<?php echo urlencode($nome_projeto); ?>" id="email" target="_blank">
+                            <a href="mailto:<?php echo $row_candidato['email']; ?>?subject=O%20Portal%20de%20Oportunidades%20Acadêmicas%20informa%20que%20você%20foi%20selecionado%20para%20seguir%20no%20projeto%20<?php echo urlencode($nome_projeto); ?>.%20Estamos%20entrando%20em%20contato%20para%20dar%20os%20próximos%20passos%20nessa%20jornada." id="email" target="_blank">
                                 <div class="contato-icon"><i class="fa-regular fa-envelope" style="font-size: 16px; font-weight: 200;"></i></div>
 
                                 <?php echo $row_candidato['email']; ?>
-
                             </a>
 
                             <!-- linkedin -->
-                            <a href="https://www.linkedin.com/in/<?php echo $row_candidato['linkedin']; ?>/?message=Estou%20entrando%20em%20contato%20para%20falar%20sobre%20o%20projeto%20<?php echo urlencode($nome_projeto); ?>" id="linkedin" target="_blank">
+                            <a href="https://www.linkedin.com/in/<?php echo $row_candidato['linkedin']; ?>/?message=O%20Portal%20de%20Oportunidades%20Acadêmicas%20informa%20que%20você%20foi%20selecionado%20para%20seguir%20no%20projeto%20<?php echo urlencode($nome_projeto); ?>.%20Estamos%20entrando%20em%20contato%20para%20dar%20os%20próximos%20passos%20nessa%20jornada." id="linkedin" target="_blank">
                                 <div class="contato-icon"><i class="fa-brands fa-linkedin-in" style="font-size: 14px; font-weight: light;"></i></div>
 
                                 <?php echo $row_candidato['linkedin']; ?>
                             </a>
+
                         </div>
                     </div>
                 </div>
