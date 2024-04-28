@@ -118,11 +118,13 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
                     <label for="whatsapp-input">WhatsApp*</label>
                 </div>
             </div>
+
             <!-- linkedin -->
             <div class="form-item">
                 <input type="linkedin" name="linkedin" id="linkedin-input" value="<?php echo $dados_aluno['linkedin']; ?>" />
                 <label for="linkedin-input">LinkedIn</label>
             </div>
+            
 
             <!-- botões -->
             <div class="btn-wrapper">

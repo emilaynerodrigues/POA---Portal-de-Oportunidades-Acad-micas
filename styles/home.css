@@ -418,11 +418,13 @@ main section h4 {
 /* categorias */
 .swiper-wrapper {
   display: flex;
+  gap: 20px;
   /* background-color: #5859ad; */
 }
 
 .categoria-slide {
-  flex-grow: 1;
+  flex: 1;
+  height: 160px !important;
   border-radius: 5px;
   padding: 20px;
   display: flex !important;
@@ -430,6 +432,7 @@ main section h4 {
   gap: 10px;
   background-color: var(--white-flash);
   cursor: pointer;
+  /* background-color: #5859ad; */
 }
 
 .categoria-slide .categoria-icon {
@@ -471,16 +474,19 @@ main section h4 {
   position: relative;
 }
 
-.candidatos-wrapper {
-  width: 500px;
+.wrapper-container{
+  max-height: 400px; /* 60px para acomodar o padding de 30px em cada lado */
+  overflow-y: auto;
   margin-top: 40px;
+
+}
+
+.candidatos-wrapper,
+#modalProjetos .projetos-wrapper {
+  width: 500px;
   display: flex;
   flex-direction: column;
   gap: 20px;
-  overflow-y: auto;
-  max-height: calc(
-    100% - 30px
-  ); /* 60px para acomodar o padding de 30px em cada lado */
 }
 
 /* Estilos para o scrollbar vertical */
@@ -609,6 +615,10 @@ main section h4 {
   width: 100%;
 }
 
+.form-item textarea{
+  padding-top: 20px;
+}
+
 #portfolio .content-sections {
   display: flex;
   flex-direction: column;
@@ -650,26 +660,26 @@ main section h4 {
   text-transform: capitalize;
 }
 
-.line{
+.line {
   height: 1.1px;
   width: 100%;
   background-color: var(--federal-blue);
 }
 
-.contato{
+.contato {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
-.contato h3{
+.contato h3 {
   font-size: 18px;
   font-weight: 500;
   color: var(--federal-blue);
   text-align: center;
 }
 
-.contato p{
+.contato p {
   font-size: 14px;
 }
 
@@ -679,7 +689,7 @@ main section h4 {
   gap: 10px;
 }
 
-.contato-item a{
+.contato-item a {
   display: flex;
   gap: 10px;
   align-items: center;
@@ -694,11 +704,77 @@ main section h4 {
   border: solid 1.5px var(--federal-blue);
   border-radius: 50%;
   color: var(--federal-blue);
-  transition: .1s all;
+  transition: 0.1s all;
 }
 
 .contato-item a:hover .contato-icon {
   border: none;
   background-color: var(--medium-blue);
   color: var(--white);
+}
+
+/* administrador */
+table {
+  margin-top: 20px;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  font-weight: 400;
+}
+
+table tr th,
+table tr td {
+  padding: 15px;
+  text-align: start;
+}
+
+table .h-table {
+  background-color: var(--medium-blue);
+  color: var(--white);
+}
+
+table .b-table {
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.089);
+  transition: 0.3s all;
+}
+
+table .b-table:hover {
+  background-color: var(--white-flash);
+}
+
+.alunos-table .email,
+.alunos-table .name {
+  width: 35%;
+}
+
+table .name {
+  text-transform: capitalize;
+}
+
+table .action-item {
+  width: 10%;
+  text-align: center;
+  /* background-color: #70a08f; */
+}
+
+#anunciantes table .action-item{
+  width: 7%;
+}
+
+.action-item a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.action-item a span {
+  font-size: 24px;
+  font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 40;
+  color: var(--medium-blue);
+}
+
+.delete-action{
+  color: var(--light-coral) !important;
 }

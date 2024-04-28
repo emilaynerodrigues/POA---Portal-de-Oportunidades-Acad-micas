@@ -226,7 +226,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
               <h3>Design</h3>
               <!-- texto sobre subareas da categoria -->
               <p>
-                Arte digital, design gráfico, design de produto, design UX/UI, ilustração digital, animação gráfica, design de personagens, motion design, ...
+                Arte digital, design gráfico, design de produto, design UX/UI, ilustração digital, animação gráfica, motion design, ...
               </p>
             </div>
 
@@ -394,7 +394,6 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <script>
     var swiper = new Swiper(".mySwiper", {
       slidesPerView: 1,
-      spaceBetween: 20,
       pagination: {
         el: ".swiper-pagination",
         clickable: true,
@@ -405,15 +404,15 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       },
       breakpoints: {
         640: {
-          slidesPerView: 2,
+          slidesPerView: 1,
           // spaceBetween: 20,
         },
         768: {
-          slidesPerView: 4,
+          slidesPerView: 2,
           // spaceBetween: 20,
         },
         1024: {
-          slidesPerView: 7,
+          slidesPerView: 4,
           // spaceBetween: 20,
         },
       },

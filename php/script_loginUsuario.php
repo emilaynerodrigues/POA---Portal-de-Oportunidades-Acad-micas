@@ -45,6 +45,13 @@ $queryAnunciante->bindValue(":s", $senha);
 $queryAnunciante->execute();
 $rowAnunciante = $queryAnunciante->fetch(PDO::FETCH_ASSOC); //obtem (se houver) os dados do anunciante
 
+// Consulta para verificar se as credenciais são válidas para um administrador
+$queryAdmin = $conn->prepare("SELECT id FROM administrador WHERE email = :e AND senha = :s");
+$queryAdmin->bindValue(":e", $email);
+$queryAdmin->bindValue(":s", $senha);
+$queryAdmin->execute();
+$rowAdmin = $queryAdmin->fetch(PDO::FETCH_ASSOC); //obtem (se houver) os dados do administrador
+
 if ($rowAluno) {
     $_SESSION['user_id'] = $rowAluno['id'];
     $_SESSION['user_type'] = 'aluno'; // Para distinguir entre aluno e anunciante
@@ -80,6 +87,13 @@ if ($rowAluno) {
         header("Location: ../pages/anunciante/home.php");
         exit();
     }
+} elseif ($rowAdmin) {
+    $_SESSION['user_id'] = $rowAdmin['id'];
+    $_SESSION['user_type'] = 'admin';
+
+    //Redirecionando para home do administrador
+    header("Location: ../pages/admin/home.php");
+    exit();
 } else {
     // Se não encontrou um anunciante com as credenciais fornecidas, redirecionar para página de login
     header("Location: ../pages/login.php"); //Redirecionando para página de login

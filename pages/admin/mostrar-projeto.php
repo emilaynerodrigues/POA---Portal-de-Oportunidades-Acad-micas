@@ -4,7 +4,7 @@ session_start();
 ob_start(); //limpando buffer
 
 // Verificando se o usuário está logado como anunciante
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'anunciante') {
+if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
     // Se não estiver logado como anunciante, redirecione para a página de login
     header('Location: ../../index.php');
     $_SESSION['mensagem'] =
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['EditProjeto'])) {
         $_SESSION["projeto-atualizado"] = true;
         // redirecionar para a página de alteração do projeto após o tratamento do formulário
         //para então mostrar mensagem do modal
-        header("Location: alterar-projeto.php?id=$id");
+        header("Location: mostrar-projeto.php?id=$id");
         exit; // encerrando o script para evitar que o restante seja executado
     } else {
         // atualização falhou, exibir mensagem de erro

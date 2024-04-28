@@ -95,43 +95,45 @@ if (isset($_GET['projeto_id'])) {
     <div class="modal-content">
         <span class='modal-close close-icon material-symbols-outlined closeIconCandidatos'> close </span>
 
-        <div class="candidatos-wrapper">
-            <!-- Conteúdo do modal de candidatos aqui -->
-            <?php
-            // Verificando se o projeto_id está definido
-            if (isset($_GET['projeto_id'])) {
-                $projeto_id = $_GET['projeto_id']; // Obtendo o ID do projeto do parâmetro GET
-                // Conectando ao banco de dados
-                $sql_candidaturas = "SELECT aluno.id AS aluno_id, aluno.nome AS nome_aluno
-                                     FROM candidatura
-                                     INNER JOIN aluno ON candidatura.aluno_id = aluno.id
-                                     WHERE candidatura.projeto_id = :projeto_id";
-                $stmt_candidaturas = $conn->prepare($sql_candidaturas);
-                $stmt_candidaturas->bindParam(':projeto_id', $projeto_id);
-                $stmt_candidaturas->execute();
-                $candidaturas = $stmt_candidaturas->fetchAll(PDO::FETCH_ASSOC);
-                // Verificando se há candidaturas
-                if ($stmt_candidaturas->rowCount() > 0) {
-                    // Exibindo os detalhes das candidaturas
-                    foreach ($candidaturas as $candidatura) {
-                        // echo "<div>{$projeto_id}</div>";
-                        echo "
-                        <div class='candidato'>
-                            <div class='profile'>
-                                <div class='profile-icon'></div>
-                                <span id='nome'>{$candidatura['nome_aluno']}</span>
-                            </div>
-                            <a href='mostrarPortfolio.php?id={$candidatura['aluno_id']}' target='_blank' id='verPorfolio' class='btn outline-btn'>Ver portfólio</a>
-                        </div>";
+        <div class="wrapper-container">
+            <div class="candidatos-wrapper">
+                <!-- Conteúdo do modal de candidatos aqui -->
+                <?php
+                // Verificando se o projeto_id está definido
+                if (isset($_GET['projeto_id'])) {
+                    $projeto_id = $_GET['projeto_id']; // Obtendo o ID do projeto do parâmetro GET
+                    // Conectando ao banco de dados
+                    $sql_candidaturas = "SELECT aluno.id AS aluno_id, aluno.nome AS nome_aluno
+                                         FROM candidatura
+                                         INNER JOIN aluno ON candidatura.aluno_id = aluno.id
+                                         WHERE candidatura.projeto_id = :projeto_id";
+                    $stmt_candidaturas = $conn->prepare($sql_candidaturas);
+                    $stmt_candidaturas->bindParam(':projeto_id', $projeto_id);
+                    $stmt_candidaturas->execute();
+                    $candidaturas = $stmt_candidaturas->fetchAll(PDO::FETCH_ASSOC);
+                    // Verificando se há candidaturas
+                    if ($stmt_candidaturas->rowCount() > 0) {
+                        // Exibindo os detalhes das candidaturas
+                        foreach ($candidaturas as $candidatura) {
+                            // echo "<div>{$projeto_id}</div>";
+                            echo "
+                            <div class='candidato'>
+                                <div class='profile'>
+                                    <div class='profile-icon'></div>
+                                    <span id='nome'>{$candidatura['nome_aluno']}</span>
+                                </div>
+                                <a href='mostrarPortfolio.php?id={$candidatura['aluno_id']}' target='_blank' id='verPorfolio' class='btn outline-btn'>Ver portfólio</a>
+                            </div>";
+                        }
+                    } else {
+                        echo "<p>Nenhum aluno se candidatou para este projeto ainda.</p>";
                     }
                 } else {
-                    echo "<p>Nenhum aluno se candidatou para este projeto ainda.</p>";
+                    // Se o projeto_id não for especificado, exibir uma mensagem de erro ou redirecionar para outra página
+                    echo 'ID do projeto não especificado';
                 }
-            } else {
-                // Se o projeto_id não for especificado, exibir uma mensagem de erro ou redirecionar para outra página
-                echo 'ID do projeto não especificado';
-            }
-            ?>
+                ?>
+            </div>
         </div>
 
     </div>

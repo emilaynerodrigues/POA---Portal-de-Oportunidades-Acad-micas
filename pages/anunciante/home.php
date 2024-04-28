@@ -238,6 +238,7 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
           <div class="section-options">
             <a href="#" class="section-link active" data-target="dadosAcesso-section">Dados de Acesso</a>
             <a href="#" class="section-link" data-target="excluirConta-section">Desativar Conta</a>
+            <a href="#" class="section-link" data-target="suporte-section">Suporte</a>
           </div>
 
           <!-- aba - dados de acesso -->
@@ -298,6 +299,7 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
               <p>Nossa equipe de suporte terá o prazer de ajudá-lo com qualquer problema que você esteja enfrentando.</p>
             </div>
           </div>
+          
         </div>
       </section>
     </main>
