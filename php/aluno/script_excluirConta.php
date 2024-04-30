@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "<!-- Modal de confirmação - Conta excluída com sucesso -->
                 <div class='modal modal-session' id='modalMensagem'>
                 <div class='modal-content'>
-                    <a href='#' class='closeIcon'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
+                    <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
 
                     <span class='icon material-symbols-outlined'> account_circle_off </span>
                     <h3>Conta excluída com sucesso!</h3>

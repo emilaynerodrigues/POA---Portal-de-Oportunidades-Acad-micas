@@ -308,6 +308,8 @@ $projetos = $stmt_projeto->fetchAll(PDO::FETCH_ASSOC);
   <script src="../../js/linksAcesso.js"></script>
   <script src="../../js/aside.js"></script>
   <script src="../../js/modalConfirm.js"></script>
+  <script src="../../js/fecharModal.js"></script>
+
 
   <!-- script para abrir modal de sair -->
   <script>

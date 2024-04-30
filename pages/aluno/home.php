@@ -110,7 +110,7 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
       </li>
 
       <!-- minhas contratações -->
-        <!-- <li>
+      <!-- <li>
           <a href="#minhas-contratacoes" id="minhas-contratacoes-link">
             <span class="tooltip">Minhas contratações</span>
             <span class="material-symbols-outlined"> work </span>
@@ -385,6 +385,8 @@ $projetos = $stmt->fetchAll(PDO::FETCH_ASSOC);
   <script src="../../js/aside.js"></script>
   <script src="../../js/modalConfirm.js"></script>
   <script src="../../js/projetoPorCategoria.js"></script>
+  <script src="../../js/fecharModal.js"></script>
+
 
 
   <!-- script swiper js -->

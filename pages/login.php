@@ -97,6 +97,8 @@ session_start();
 
   <script src="../js/aside.js"></script>
   <script src="../js/senha.js"></script>
+  <script src="../js/fecharModal.js"></script>
+
 </body>
 
 </html>

@@ -28,7 +28,7 @@ session_start();
     </a>
 
     <nav class="menu-nav">
-      <a href="" class="menu-item">como funciona</a>
+      <a href="pages/sobre.php" class="menu-item">sobre</a>
       <a href="pages/cadastrar.php" class="menu-item">cadastra-se</a>
       <a href="pages/login.php" class="btn small-btn white-hover">entrar</a>
     </nav>
@@ -67,7 +67,7 @@ session_start();
   </main>
   <!-- vetor de fundo -->
   <img src="img/elipse.svg" alt="elipse" class="absolute" />
-  <script src="js/main.js"></script>
+  <script src="js/fecharModal.js"></script>
 </body>
 
 </html>

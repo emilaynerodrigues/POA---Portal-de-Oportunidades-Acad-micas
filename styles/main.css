@@ -378,3 +378,27 @@ form .row {
   bottom: 30px;
   right: calc(30px + 150px + 20px);
 }
+
+.hero-sobre {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-left: 70px;
+  color: var(--rich-black);
+}
+
+.hero-sobre h1 {
+  font-size: 46px;
+  font-weight: 600;
+  color: var(--federal-blue);
+}
+
+.sobre-item {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.sobre-item h3 {
+  color: var(--federal-blue);
+}

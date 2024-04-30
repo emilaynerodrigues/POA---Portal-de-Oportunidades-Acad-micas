@@ -74,12 +74,12 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
 <!-- Modal de confirmação de atualização de dados de acesso -->
 <div class='modal modal-delete' id="modalPorfolio">
     <div class='modal-content'>
-        <a href="#" onclick="fecharModal()"><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
+        <a href="#" onclick="fecharModalPorfolio()"><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
         <span class='icon material-symbols-outlined'> help </span>
         <h3>Tem certeza?</h3>
         <p>Seus dados de acesso serão atualizados em nossa base de dados. Tem certeza que deseja continuar?</p>
         <div class='btn-wrapper'>
-            <a href='#' onclick="fecharModal()" class='btn small-btn cancel-btn modal-close'>Cancelar</a>
+            <a href='#' onclick="fecharModalPorfolio()" class='btn small-btn cancel-btn modal-close'>Cancelar</a>
             <!-- Adicione um evento onclick para chamar a função confirmarAtualizacao() -->
             <a href='#' id="confirmButton" class='btn small-btn' onclick="confirmarAtualizacao()">Sim</a>
         </div>
@@ -99,7 +99,7 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
     // Função para fechar o modal
-    function fecharModal() {
+    function fecharModalPorfolio() {
         var modal = document.getElementById("modalPorfolio");
         modal.style.display = "none"; // Fechar o modal de confirmação de atualização de dados
     }

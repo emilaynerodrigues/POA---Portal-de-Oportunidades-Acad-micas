@@ -71,19 +71,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['EditAnunciante'])) {
     if ($edit_anunciante->execute()) {
         // Atualização bem-sucedida, redirecionar para a página de alteração do anunciante
         $_SESSION["mensagem"] = "
-        <div class='modal modal-session'>
+        <div class='modal modal-session' id='modalMensagem'>
             <div class='modal-content'>
-                <a href='home.php'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
+                <a href='#' class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
                 <span class='icon material-symbols-outlined'> check_circle </span>
                 <h3>Dados alterados com sucesso!</h3>
                 <p>As alterações foram salvas com sucesso e seu anunciante está atualizado</p>
                 <div class='btn-wrapper'>
-                    <a href='home.php' class='btn small-btn modal-close'>Entendi</a>
+                    <a href='#' class='btn small-btn modal-close closeIcon'>Entendi</a>
                 </div>
             </div>
         </div>";
         //para então mostrar mensagem do modal
-        header("Location: anunciante-alterar.php?id=$id");
+        header("Location: lista-anunciantes.php?id=$id");
         exit; // encerrando o script para evitar que o restante seja executado
     } else {
         // atualização falhou, exibir mensagem de erro
@@ -207,12 +207,13 @@ unset($_SESSION['anunciante-atualizado']);
             <p>Tem certeza que deseja cancelar a operação? Seus dados serão perdidos!</p>
             <div class="btn-wrapper">
                 <button class="btn small-btn outline-btn modal-close">Cancelar</button>
-                <button class="btn small-btn" id="confirmBtn">Sim</button>
+                <a href="lista-anunciantes.php" class="btn small-btn">Sim</a>
             </div>
         </div>
     </div>
 
     <script src="../../js/modalConfirm.js"></script>
+    <script src="../../js/fecharModal.js"></script>
 </body>
 
 </html>

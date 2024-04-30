@@ -264,15 +264,15 @@ main section h4 {
   margin-bottom: 30px;
 }
 
-#menu-inicial .pagination {
+ .pagination {
   position: absolute;
   left: 50%;
-  bottom: 0;
+  bottom: 30px;
   transform: translate(-50%, 50%);
   display: flex;
 }
 
-#menu-inicial .pagination a {
+.pagination a {
   display: flex;
 }
 
@@ -474,11 +474,10 @@ main section h4 {
   position: relative;
 }
 
-.wrapper-container{
+.wrapper-container {
   max-height: 400px; /* 60px para acomodar o padding de 30px em cada lado */
   overflow-y: auto;
   margin-top: 40px;
-
 }
 
 .candidatos-wrapper,
@@ -615,7 +614,7 @@ main section h4 {
   width: 100%;
 }
 
-.form-item textarea{
+.form-item textarea {
   padding-top: 20px;
 }
 
@@ -759,7 +758,7 @@ table .action-item {
   /* background-color: #70a08f; */
 }
 
-#anunciantes table .action-item{
+#anunciantes table .action-item {
   width: 7%;
 }
 
@@ -775,6 +774,33 @@ table .action-item {
   color: var(--medium-blue);
 }
 
-.delete-action{
+.delete-action {
   color: var(--light-coral) !important;
+}
+
+.content-admin {
+  display: flex;
+  gap: 30px;
+  margin-top: 20px;
+}
+
+.content-item {
+  flex: 1;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-radius: 5px;
+  background-color: var(--white-flash);
+  transition: 0.2s all;
+  color: var(--rich-black);
+}
+
+.content-item:hover {
+  background-color: #e7e7e7;
+}
+
+.content-item h3{
+  font-size: 20px;
+  color: var(--federal-blue);
 }

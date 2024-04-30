@@ -38,9 +38,7 @@
             <div class="projeto-info">
                 <!-- Título do projeto -->
                 <h3 id="titulo-projeto" class="titulo-projeto"></h3>
-                <p class="info-adicional">
-                    data do projeto aqui
-                </p>
+               
             </div>
         </div>
 
@@ -91,7 +89,7 @@ if (isset($_GET['projeto_id'])) {
 }
 ?>
 
-<div id="modalCandidatos" class="modal modal-confirm" style="display: none;">
+<div id="modalCandidatos" class="modal modal-confirm">
     <div class="modal-content">
         <span class='modal-close close-icon material-symbols-outlined closeIconCandidatos'> close </span>
 

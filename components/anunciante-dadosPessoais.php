@@ -90,21 +90,6 @@ if (empty($dados_anunciante['cnpj'])) {
         </div>
     </div>
 </div>
-
-<!-- modal de Alerta de Campo Vazio -->
-<div id="confirmVazio" class="modal modal-delete" style="display: none;">
-    <div class="modal-content">
-        <span class='modal-close close-icon material-symbols-outlined closeModal'> close </span>
-
-        <span class="icon material-symbols-outlined"> cancel </span>
-        <h3>Campos vazios!</h3>
-        <p>Por favor, preencha todos os campos obrigatórios!</p>
-        <div class='btn-wrapper'>
-            <a href='#' class='btn small-btn modal-close closeModal'>Entendi</a>
-        </div>
-    </div>
-</div>
-
 <script>
     // Função para fechar os modais
     function fecharModais() {
@@ -122,32 +107,9 @@ if (empty($dados_anunciante['cnpj'])) {
         });
     });
 
-    // Função para validar o formulário
-    function validarFormulario() {
-        var form = document.getElementById("form-anunciante");
-        var camposObrigatorios = form.querySelectorAll("[required]");
-        var camposPreenchidos = true;
-
-        camposObrigatorios.forEach(function(campo) {
-            if (campo.value.trim() === '') {
-                camposPreenchidos = false;
-            }
-        });
-
-        return camposPreenchidos;
-    }
-
-    // Função para abrir o modal de confirmação de atualização de dados
+    // Função para abrir o modal de confirmação de atualização de dados - anunciante
     function abrirModalAnunciante(event) {
         event.preventDefault(); // Impede o comportamento padrão do link
-
-        // Validar o formulário antes de exibir o modal de confirmação
-        if (!validarFormulario()) {
-            // Exibir a modal de alerta de campo vazio, se necessário
-            var modalVazio = document.getElementById("confirmVazio");
-            modalVazio.style.display = "flex";
-            return;
-        }
 
         var modal = document.getElementById("modalDadosAnunciante");
 
@@ -156,11 +118,10 @@ if (empty($dados_anunciante['cnpj'])) {
         confirmButton.onclick = function(event) {
             event.preventDefault(); // Impede o comportamento padrão do link
 
-            // Submeter o formulário para atualizar os dados do anunciante
+            // Submeter o formulário para atualizar os dados do aluno
             var form = document.getElementById("form-anunciante");
             form.submit();
         };
-
         // Abrir o modal de confirmação de atualização de dados
         modal.style.display = "flex";
     }

@@ -3,21 +3,6 @@ $conn = conectar();
 
 $id_aluno = $_SESSION['user_id'];
 
-$sql_cpf = "SELECT cpf FROM aluno WHERE id = $id_aluno";
-$stmt_cpf = $conn->query($sql_cpf);
-
-if (!$stmt_cpf) {
-    die("Erro na consulta: " . $conn->errorInfo()[2]);
-}
-
-if ($stmt_cpf->fetch()) {
-    $cpfReadOnly = "readonly class='cpf-readonly'";
-    $cpfInput = "input-fill";
-} else {
-    $cpfReadOnly = "";
-    $cpfInput = "";
-}
-
 $sql = "SELECT nome, cpf, genero, dataNasc, email, matricula, telefone, whatsapp, linkedin FROM aluno WHERE id = $id_aluno";
 $stmt = $conn->query($sql);
 
@@ -26,6 +11,15 @@ if (!$stmt) {
 }
 
 $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
+
+// Verificar se o campo CNPJ está vazio para decidir sobre o atributo readonly
+if (empty($dados_aluno['cpf'])) {
+    $cpfReadOnly = ""; // Se estiver vazio, não será readonly
+    $cpfInput = "class=''";
+} else {
+    $cpfReadOnly = "readonly class='emailCandidato-input'"; // Caso contrário, será readonly
+    $cpfInput = "input-fill";
+}
 ?>
 
 <div class="dados-wrapper">
@@ -64,7 +58,7 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
                     <select name="genero" id="genero-select" required>
                         <option value="" disabled selected hidden>Selecione um gênero</option>
                         <?php
-                        $generos = array("Feminino" => "f", "Masculino" => "m");
+                        $generos = array("Feminino" => "F", "Masculino" => "M");
                         foreach ($generos as $genero => $valor) {
                             echo "<option value='$valor'";
                             if (isset($dados_aluno['genero']) && $dados_aluno['genero'] == $valor) {
@@ -73,6 +67,7 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
                             echo ">$genero</option>";
                         }
                         ?>
+
                     </select>
                     <label for="genero-select">Gênero*</label>
                 </div>
@@ -124,7 +119,7 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
                 <input type="linkedin" name="linkedin" id="linkedin-input" value="<?php echo $dados_aluno['linkedin']; ?>" />
                 <label for="linkedin-input">LinkedIn</label>
             </div>
-            
+
 
             <!-- botões -->
             <div class="btn-wrapper">
@@ -150,20 +145,6 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
 </div>
 
 
-<!-- modal de Alerta de Campo Vazio -->
-<div id="confirmVazio" class="modal modal-delete" style="display: none;">
-    <div class="modal-content">
-        <span class='modal-close close-icon material-symbols-outlined closeModal'> close </span>
-
-        <span class="icon material-symbols-outlined"> cancel </span>
-        <h3>Campos vazios!</h3>
-        <p>Por favor, preencha todos os campos obrigatórios!</p>
-        <div class='btn-wrapper'>
-            <a href='#' class='btn small-btn modal-close closeModal'>Entendi</a>
-        </div>
-    </div>
-</div>
-
 <script>
     // Função para fechar os modais
     function fecharModais() {
@@ -185,14 +166,6 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
     function abrirModalCandidato(event) {
         event.preventDefault(); // Impede o comportamento padrão do link
 
-        // Validar o formulário antes de exibir o modal de confirmação
-        if (!validarFormulario()) {
-            // Exibir a modal de alerta de campo vazio, se necessário
-            var modalVazio = document.getElementById("confirmVazio");
-            modalVazio.style.display = "flex";
-            return;
-        }
-
         var modal = document.getElementById("modalDadosCandidato");
 
         // Configurar o link de confirmação para enviar o formulário
@@ -208,25 +181,9 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
         modal.style.display = "flex";
     }
 
-    // atribuindo evento de clique ao ícone de fechamento
-    var closeModal = document.querySelectorAll(".closeModal");
-    closeModal.forEach(function(closeModal) {
-        // Adicionando um event listener para o evento de clique em cada closeModal
-        closeModal.addEventListener("click", fecharModal);
-    });
-
-    // ---------------------------------------------------------------------------
     // Função para abrir o modal de confirmação de atualização de dados - contato
     function abrirModalContato(event) {
         event.preventDefault(); // Impede o comportamento padrão do link
-
-        // Validar o formulário antes de exibir o modal de confirmação
-        if (!validarFormulario()) {
-            // Exibir a modal de alerta de campo vazio, se necessário
-            var modalVazio = document.getElementById("confirmVazio");
-            modalVazio.style.display = "flex";
-            return;
-        }
 
         var modal = document.getElementById("modalDadosCandidato");
 
@@ -242,5 +199,4 @@ $dados_aluno = $stmt->fetch(PDO::FETCH_ASSOC);
         // Abrir o modal de confirmação de atualização de dados
         modal.style.display = "flex";
     }
-    // ---------------------------------------------------------------------------
 </script>

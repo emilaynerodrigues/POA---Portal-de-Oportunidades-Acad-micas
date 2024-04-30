@@ -57,13 +57,13 @@ session_start();
 
         <!-- nome -->
         <div class="form-item">
-          <input type="text" name="nome" id="nome-input" required />
+          <input type="text" name="nome" id="nome-input" pattern="[a-zA-ZÀ-ÿ\s]+" title="O nome não deve conter números ou caracteres especiais" required />
           <label for="nome-input">Nome completo</label>
         </div>
 
         <!-- email -->
         <div class="form-item">
-          <input type="text" name="email" id="email-input" required />
+          <input type="email" name="email" id="email-input" required />
           <label for="email-input">E-mail</label>
         </div>
 

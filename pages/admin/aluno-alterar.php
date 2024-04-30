@@ -193,13 +193,13 @@ unset($_SESSION['aluno-atualizado']);
                             <!-- genero -->
                             <div class="form-item select">
                                 <select name="genero" id="genero-select" required>
-                                    <option value="" disabled selected hidden>Selecione um gênero</option>
+                                    <option value="" disabled hidden>Selecione um gênero</option>
                                     <?php
                                     $generos = array("Feminino" => "f", "Masculino" => "m");
                                     foreach ($generos as $genero => $valor) {
                                         echo "<option value='$valor'";
-                                        if (isset($dados['genero']) && $dados['genero'] == $valor) {
-                                            echo "selected";
+                                        if ($row_aluno['genero'] === $valor) {
+                                            echo " selected";
                                         }
                                         echo ">$genero</option>";
                                     }
@@ -207,6 +207,8 @@ unset($_SESSION['aluno-atualizado']);
                                 </select>
                                 <label for="genero-select">Gênero*</label>
                             </div>
+
+
 
                             <!-- dataNasc -->
                             <div class="form-item">
@@ -278,7 +280,7 @@ unset($_SESSION['aluno-atualizado']);
             <p>Tem certeza que deseja cancelar a operação? Seus dados serão perdidos!</p>
             <div class="btn-wrapper">
                 <button class="btn small-btn outline-btn modal-close">Cancelar</button>
-                <button class="btn small-btn" id="confirmBtn">Sim</button>
+                <a href="lista-alunos.php" class="btn small-btn">Sim</a>
             </div>
         </div>
     </div>

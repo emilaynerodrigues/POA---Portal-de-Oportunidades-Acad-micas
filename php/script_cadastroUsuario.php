@@ -46,7 +46,7 @@ if ($verificarAluno->rowCount() == 0 && $verificarAnunciante->rowCount() == 0) {
             <a href='../../pages/cadastrar.php'><span class='\modal-close close-icon material-symbols-outlined'> close </span></a>
             <span class='icon material-symbols-outlined'> check_circle </span>
             <h3>Usuário cadastrado com sucesso!</h3>
-            <p>Seu cadastro foi realizado com suceFFsso! Clique no botão abaixo para fazer login e acessar sua conta.</p>
+            <p>Seu cadastro foi realizado com sucesso! Clique no botão abaixo para fazer login e acessar sua conta.</p>
             <div class='btn-wrapper'>
                 <a href='../../pages/login.php' class='btn small-btn modal-close'>Fazer Login</a>
             </div>

@@ -27,7 +27,6 @@ $tipoUsuario = $_SESSION['user_type'];
 // Incluir o arquivo de conexão com o banco de dados
 include("../../php/conexao.php");
 $conn = conectar();
-
 ?>
 
 <!DOCTYPE html>
@@ -74,18 +73,9 @@ $conn = conectar();
         <ul id="menuOptions">
             <!-- Anunciantes -->
             <li>
-                <a href="#anunciantes" id="anunciante-link"><span class="tooltip">Anunciantes</span>
-                    <span class="material-symbols-outlined"> id_card </span>
-                    <span class="menu-item-label">Anunciantes</span>
-                </a>
-            </li>
-
-            <!-- Alunos -->
-            <li>
-                <a href="#alunos" id="alunos-link">
-                    <span class="tooltip">Alunos</span>
-                    <span class="material-symbols-outlined"> group </span>
-                    <span class="menu-item-label">Alunos</span>
+                <a href="#home" id="menu-link"><span class="tooltip">Menu Inicial</span>
+                    <span class="material-symbols-outlined"> home </span>
+                    <span class="menu-item-label">Menu Inicial</span>
                 </a>
             </li>
 
@@ -135,144 +125,37 @@ $conn = conectar();
             </div>
         </header>
 
-        <main class="content-wrapper">
+        <main class="content-wrapper ">
             <!-- seção do anunciantes -->
-            <section class="content" id="anunciantes">
-                <h4>Lista de anunciantes</h4>
-                <table>
-                    <tr class="h-table">
-                        <th>Nome do anunciante</th>
-                        <th>Nome da empresa</th>
-                        <th>Email</th>
-                        <th class="action-item">Projetos</th>
-                        <th class="action-item">Alterar</th>
-                        <th class="action-item">Desativar</th>
-                        <th class="action-item">Deletar</th>
-                    </tr>
-                    <?php
-                    // Consultar dados dos anunciantes
-                    $queryAnunciantes = $conn->prepare("SELECT * FROM anunciante");
-                    $queryAnunciantes->execute();
-                    $anunciantes = $queryAnunciantes->fetchAll(PDO::FETCH_ASSOC);
+            <section class="content" id="home">
 
-                    // Exibir os anunciantes
-                    foreach ($anunciantes as $anunciante) {
-                        echo "<tr class='b-table'>";
-                        echo "<td class='name'>{$anunciante['nome']}</td>";
-                        echo "<td class='name'>{$anunciante['nome_empresa']}</td>";
-                        echo "<td class='email'>{$anunciante['email']}</td>";
-                        echo "<td class='action-item'><a href='?anunciante_id=" . $anunciante['id'] . "'><span class='material-symbols-outlined'>visibility</span></a></td>"; // Adicione este link para visualizar os projetos do anunciante
-                        echo "<td class='action-item'><a href='anunciante-alterar.php?id=" . $anunciante['id'] . "'><span class='material-symbols-outlined'>edit_square</span></a></td>";
-                        echo "<td class='action-item'><a href='#'><span class='material-symbols-outlined'>disabled_by_default</span></a></td>";
-                        echo "<td class='action-item'><a href='#' class='deleteAnunciante' data-anunciante-id=" . $anunciante['id'] . "'><span class='delete-action material-symbols-outlined'>delete</span></a></td>";
-                        echo "</tr>";
-                    }
+                <h4>Lista de usuários</h4>
 
-                    ?>
-                </table>
+                <div class="content-admin">
+                    <a href="lista-alunos.php" class="content-item">
+                        <h3>Alunos</h3>
+                        <p>Clique para visualizar os alunos cadastrados no sistema</p>
+                    </a>
+
+                    <a href="lista-anunciantes.php" class="content-item">
+                        <h3>Anunciantes</h3>
+                        <p>Clique para visualizar os anunciantes cadastrados no sistema</p>
+                    </a>
+                </div>
+
             </section>
 
-            <!-- seção do alunos -->
-            <section class="content" id="alunos">
-                <h4>Lista de alunos</h4>
-                <table class="alunos-table">
-                    <tr class="h-table">
-                        <th>Nome do aluno</th>
-                        <th>Email</th>
-                        <th class="action-item">Candidaturas</th>
-                        <th class="action-item">Alterar</th>
-                        <th class="action-item">Deletar</th>
-                    </tr>
-                    <?php
-                    // Consultar dados dos alunos
-                    $queryAlunos = $conn->prepare("SELECT * FROM aluno");
-                    $queryAlunos->execute();
-                    $alunos = $queryAlunos->fetchAll(PDO::FETCH_ASSOC);
 
-                    // Exibir os alunos
-                    foreach ($alunos as $aluno) {
-                        echo "<tr class='b-table'>";
-                        echo "<td class='name'>{$aluno['nome']}</td>";
-                        echo "<td class='email'>{$aluno['email']}</td>";
-                        echo "<td class='action-item'><a href='?aluno_id=" . $aluno['id'] . "'><span class='material-symbols-outlined'>view_list</span></a></td>"; // Adicione este link para visualizar os projetos do anunciante
-                        echo "<td class='action-item'><a href='aluno-alterar.php?id=" . $aluno['id'] . "' target='_blank'><span class='material-symbols-outlined'>edit_square</span></a></td>";
-                        echo "<td class='action-item'><a href='#'><span class='delete-action material-symbols-outlined'>delete</span></a></td>";
-                        echo "</tr>";
-                    }
-                    ?>
-                </table>
-            </section>
         </main>
 
-        <!-- Modal para exibir os projetos do usuário -->
-        <div id="modalProjetos" class="modal modal-confirm" style="display: none;">
-            <div class="modal-content">
-                <span class='modal-close close-icon material-symbols-outlined closeIconProjetos'> close </span>
 
-                <div class="wrapper-container">
-                    <div class="projetos-wrapper">
-                        <!-- Conteúdo do modal de projetos aqui -->
-                        <?php
-                        // Verifica se o ID do anunciante está presente na URL
-                        if (isset($_GET['anunciante_id'])) {
-                            $anunciante_id = $_GET['anunciante_id'];
-                            // Exibe o script JavaScript para abrir o modal de projetos
-                            echo "<script>document.getElementById('modalProjetos').style.display = 'flex';</script>";
-                            // Consulta SQL para selecionar os projetos associados ao anunciante com o ID fornecido
-                            $sql_projetos = "SELECT * FROM projeto WHERE anunciante_id = :anunciante_id";
-                            $stmt_projetos = $conn->prepare($sql_projetos);
-                            $stmt_projetos->bindParam(':anunciante_id', $anunciante_id);
-                            $stmt_projetos->execute();
-                            // Verifica se a consulta foi executada com sucesso
-                            if ($stmt_projetos) {
-                                // Verifica se há projetos associados a esse anunciante
-                                if ($stmt_projetos->rowCount() > 0) {
-                                    // Exibindo os detalhes dos projetos associados a esse anunciante
-                                    foreach ($stmt_projetos as $projeto) {
-                                        echo "
-                                        <div class='candidato'>
-                                            <div class='profile'>
-                                                <span id='nome'>{$projeto['titulo']}</span>
-                                            </div>
-                                            <a href='mostrar-projeto.php?id={$projeto['id']}' target='_blank' id='verProjeto' class='btn outline-btn'>Ver detalhes</a>
-                                        </div>";
-                                    }
-                                } else {
-                                    echo "<p>Ops! Parece que este anunciante ainda não postou nenhum projeto.</p>";
-                                }
-                            } else {
-                                // Se a consulta não foi executada com sucesso, exibir uma mensagem de erro
-                                echo "<p>Erro ao executar a consulta.</p>";
-                            }
-                        } else {
-                            // Se o anunciante_id não estiver presente na URL, exibir uma mensagem de erro
-                            echo '<p>ID do anunciante não especificado</p>';
-                        }
-                        ?>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- modal de confirmação de deletar anunciante de dados -->
-        <div class='modal modal-delete' id="modalAnunciante">
-            <div class='modal-content'>
-                <span class='modal-close close-icon material-symbols-outlined closeModal'> close </span>
-                <span class='icon material-symbols-outlined'> help </span>
-                <h3>Tem certeza?</h3>
-                <p>Todos os dados vinculados ao anunciante serão apagados permanentemente da base de dados. Você tem certeza que deseja continuar?</p>
-                <div class='btn-wrapper'>
-                    <a href='#' class='btn small-btn cancel-btn closeModal'>Cancelar</a>
-                    <a href='' id="confirmButton" class='btn small-btn'>Sim</a>
-                </div>
-            </div>
-        </div>
 
     </div>
 
     <script src="../../js/modalConfirm.js"></script>
     <script src="../../js/aside.js"></script>
+    <script src="js/fecharModal.js"></script>
+
 
     <!-- script para abrir modal de sair -->
     <script>
@@ -282,51 +165,7 @@ $conn = conectar();
             modal.style.display = "flex";
         }
 
-        // Seleciona todos os elementos com a classe 'verProjetos'
-        var verProjetosLinks = document.querySelectorAll('.verProjetos');
-
-        // Adiciona um evento de clique a cada link 'verProjetos'
-        verProjetosLinks.forEach(function(link) {
-            link.addEventListener('click', function(event) {
-                event.preventDefault(); // Impede o comportamento padrão do link
-
-                // Abre o modal de projetos
-                var modalProjetos = document.getElementById('modalProjetos');
-                modalProjetos.style.display = 'flex';
-            });
-        });
-
-        // função para fechar o modal de candidatos e reabrir o modal de informações do projeto
-        function fecharModalProjetos() {
-            var modalProjetos = document.getElementById("modalProjetos");
-
-            modalProjetos.style.display = "none"; // fechando o modal de candidatos
-
-            // atualizando a URL da página para remover o parâmetro do ID do projeto --> restaurando ao padrão da url
-            history.replaceState({}, document.title, window.location.pathname);
-        }
-
-        var closeIconProjetos = document.querySelectorAll(".closeIconProjetos");
-        closeIconProjetos.forEach(function(closeIconProjetos) {
-            closeIconProjetos.addEventListener("click", fecharModalProjetos);
-        });
-
-        // Adicione um evento de clique aos ícones de exclusão na tabela de anunciantes
-        var deleteAnuncianteIcons = document.querySelectorAll('.deleteAnunciante');
-        deleteAnuncianteIcons.forEach(function(icon) {
-            icon.addEventListener('click', function(event) {
-                event.preventDefault();
-                var anuncianteId = this.getAttribute('data-anunciante-id');
-                console.log(anuncianteId)
-                // Abrir o modal de confirmação
-                var modalAnunciante = document.getElementById('modalAnunciante');
-                modalAnunciante.style.display = 'flex';
-
-                // Adicionar o ID do anunciante ao link de confirmação no modal
-                var confirmButton = document.getElementById('confirmButton');
-                confirmButton.setAttribute('href', '../../php/admin/script_deletarAnunciante.php?anunciante_id=' + anuncianteId);
-            });
-        });
+     
     </script>
 
 

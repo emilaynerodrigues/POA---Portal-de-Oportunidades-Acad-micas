@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Incluir o arquivo de conexão com o banco de dados
 include("../conexao.php");
 $conn = conectar();
@@ -28,23 +29,23 @@ if (isset($_GET['anunciante_id'])) {
     // Redirecionar para a página de anunciantes após a exclusão
     $_SESSION['mensagem'] =
         "<!-- Modal de confirmação - Dados deletados com sucesso! -->
-        <div class='modal modal-session'>
+        <div class='modal modal-session' id='modalMensagem'>
             <div class='modal-content'>
-                <a href='../../pages/home.php'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
+                <a class='closeIcon'><span class='modal-close close-icon material-symbols-outlined'> close </span></a>
                 <span class='icon material-symbols-outlined'> check_circle </span>
                 <h3>Dados deletados com sucesso!</h3>
                 <p>Os dados do anunciante, assim como os projetos e candidaturas vinculados a ele, foram deletados permanentemente da base de dados.</p>
                 <div class='btn-wrapper'>
-                    <a href='../php/pages/home.php' class='btn small-btn modal-close'>Entendi</a>
+                    <a class='btn small-btn modal-close closeIcon'>Entendi</a>
                 </div>
             </div>
         </div>";
-    header('Location: ../../pages/admin/home.php');
+    header('Location: ../../pages/admin/lista-anunciantes.php');
 
     exit();
 } else {
     // Se o ID do anunciante não estiver presente na solicitação, redirecionar de volta para a página de anunciantes
-    header('Location: ../../pages/admin/home.php');
+    header('Location: ../../pages/admin/lista-anunciantes.php');
 
     exit();
 }
